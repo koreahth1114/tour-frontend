@@ -1102,7 +1102,7 @@ export default function ProductDetail() {
 
                                     <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
                                         {[m1, m2].map((m, idx) => (
-                                            <div key={idx} className={`rounded-2xl border border-neutral-200 p-4 ${idx === 1 ? 'hidden md:block' : ''}`}>
+                                            <div key={idx} className={`detail-calendar rounded-2xl border border-neutral-200 p-4 ${idx === 1 ? 'hidden md:block' : ''}`}>
                                                 <div className="text-center text-sm font-extrabold text-neutral-900">
                                                     {m.start.getFullYear()}년 {String(m.start.getMonth() + 1).padStart(2, "0")}월
                                                 </div>
@@ -1178,7 +1178,7 @@ export default function ProductDetail() {
                                                             type="button"
                                                             onClick={() => setSelectedDepartureId(ev.id)}
                                                             className={[
-                                                                "w-full rounded-2xl border p-4 text-left transition",
+                                                                "detail-departure-option w-full rounded-2xl border p-4 text-left transition",
                                                                 isSelected
                                                                     ? "border-[#2E97F2] bg-[#2E97F2]/5"
                                                                     : "border-neutral-200 bg-white hover:bg-neutral-50",

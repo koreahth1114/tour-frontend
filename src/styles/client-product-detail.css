@@ -43,6 +43,9 @@
 .product-detail .detail-body #itinerary .md\:grid-cols-2 > div { background: #f6f9fb; border: 0; padding: 24px; }
 .product-detail .detail-body #summary ul { font-size: 14px; line-height: 1.9; }
 .product-detail .detail-body #summary li { padding-block: 3px; overflow-wrap: anywhere; }
+.product-detail .detail-departure-option > div > .min-w-0 > .flex:first-child { flex-wrap: wrap; }
+.product-detail .detail-departure-option .inline-flex { flex-shrink: 0; white-space: nowrap; }
+.product-detail .detail-departure-option .line-clamp-1 { flex-basis: 100%; display: block; overflow: visible; line-height: 1.7; word-break: keep-all; }
 .product-detail .detail-body #summary .grid > div { border-top: 3px solid #8fb8d1; background: #fbfdfe; }
 .product-detail .detail-body #summary .grid > div:nth-child(2) { border-top-color: #b4bdc7; }
 .product-detail .detail-body #schedule table { font-size: 14px; line-height: 1.7; }
@@ -92,7 +95,11 @@
   .product-detail .detail-body .p-5 { padding: 18px; }
   .product-detail .detail-body #select > .flex { align-items: flex-start; flex-direction: column; gap: 4px; }
   .product-detail .detail-body #select > .flex h2 { margin-bottom: 0; }
-  .product-detail .detail-body #select .grid-cols-7 button { padding-inline: 3px; }
+  .product-detail .detail-body #select .detail-calendar { padding: 16px 8px; }
+  .product-detail .detail-body #select .grid-cols-7 button { padding-inline: 0; }
+  .product-detail .detail-body #select .grid-cols-7 button > div:last-child { white-space: nowrap; letter-spacing: -.06em; }
+  .product-detail .detail-departure-option > .flex { align-items: stretch; flex-direction: column; gap: 16px; }
+  .product-detail .detail-departure-option .shrink-0.text-right { border-top: 1px solid #dce7ee; padding-top: 12px; }
   .product-detail .detail-body #itinerary .md\:grid-cols-2 > div { padding: 20px; }
   .product-detail .detail-body #schedule table { min-width: 620px; }
   .product-detail .detail-body #schedule th,.product-detail .detail-body #schedule td { padding: 12px 10px; }
