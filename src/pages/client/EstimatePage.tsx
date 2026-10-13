@@ -33,6 +33,7 @@ export default function EstimatePage() {
     >({
         name: "",
         phone: "",
+        departure_place: "",
         depart_date: "",
         return_date: "",
         people_count: 1,
@@ -44,6 +45,7 @@ export default function EstimatePage() {
     const canSubmit = useMemo(() => {
         if (!form.name.trim()) return false;
         if (!form.phone.trim()) return false;
+        if (!form.departure_place.trim()) return false;
         if (!form.depart_date.trim()) return false;
         if (!form.return_date?.trim()) return false;
         if (!form.people_count || form.people_count < 1) return false;
@@ -149,6 +151,22 @@ export default function EstimatePage() {
                                     />
                                 </div>
 
+                                {/* 출발지 */}
+                                <div>
+                                    <label htmlFor="departure-place" className="text-sm font-bold text-neutral-800">
+                                        출발지 (필수)
+                                    </label>
+                                    <input
+                                        id="departure-place"
+                                        name="departure_place"
+                                        required
+                                        className="mt-2 w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-neutral-400"
+                                        placeholder="예) 부산, 서울, 대전, 대구"
+                                        value={form.departure_place}
+                                        onChange={(e) => setForm((p) => ({ ...p, departure_place: e.target.value }))}
+                                    />
+                                </div>
+
                                 {/* 원하는 여행지(복수선택) */}
                                 <div className="md:col-span-2">
                                     <label className="text-sm font-bold text-neutral-800">
@@ -235,7 +253,7 @@ export default function EstimatePage() {
                                     <textarea
                                         rows={8}
                                         className="mt-2 w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm outline-none focus:border-neutral-400"
-                                        placeholder="예) 골프장/호텔 등급, 항공 포함 여부, 출발지, 라운딩 횟수, 온천 포함 여부 등"
+                                        placeholder="예) 골프장/호텔 등급, 항공 포함 여부, 라운딩 횟수, 온천 포함 여부 등"
                                         value={form.memo ?? ""}
                                         onChange={(e) =>
                                             setForm((p) => ({ ...p, memo: e.target.value }))
@@ -324,7 +342,7 @@ export default function EstimatePage() {
                                     onClick={async () => {
                                         if (!canSubmit) {
                                             alert(
-                                                "필수 항목(이름/연락처/출발일/인원/통화가능시간)을 입력해 주세요."
+                                                "필수 항목(이름/연락처/출발일/리턴일/인원/출발지/통화가능시간 및 개인정보 동의)을 입력해 주세요."
                                             );
                                             return;
                                         }
@@ -357,6 +375,7 @@ export default function EstimatePage() {
                                             const payload: EstimatePayload = {
                                                 name: form.name.trim(),
                                                 phone: form.phone.trim(),
+                                                departure_place: form.departure_place.trim(),
                                                 email: null,
                                                 depart_date: form.depart_date,
                                                 return_date: form.return_date || null,
@@ -378,6 +397,7 @@ export default function EstimatePage() {
                                             setForm({
                                                 name: "",
                                                 phone: "",
+                                                departure_place: "",
                                                 depart_date: "",
                                                 return_date: "",
                                                 people_count: 1,

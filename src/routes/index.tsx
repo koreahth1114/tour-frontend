@@ -1,59 +1,66 @@
+import { lazy, Suspense, type ReactNode } from "react";
 import { createBrowserRouter, useRouteError } from "react-router-dom";
 
 import ClientLayout from "../components/layout/ClientLayout";
 import Home from "../pages/client/Home";
-import ProductDetail from "../pages/client/ProductDetail";
+const ProductDetail = lazy(() => import("../pages/client/ProductDetail"));
 
-import ThemeProductsPage, { themeProductsLoader } from "../pages/client/ThemeProductsPage";
+const ThemeProductsPage = lazy(() => import("../pages/client/ThemeProductsPage"));
+const themeProductsLoader = async (args: import("react-router-dom").LoaderFunctionArgs) =>
+    (await import("../pages/client/ThemeProductsPage")).themeProductsLoader(args);
 
-import AdminLayout from "../components/layout/AdminLayout";
-import AdminHome from "../pages/admin/AdminHome";
-import AdminLogin from "../pages/admin/AdminLogin";
-import AdminProductList from "../pages/admin/AdminProductList";
-import AdminProductEdit from "../pages/admin/AdminProductEdit";
-import AdminThemes from "../pages/admin/AdminThemes";
+const AdminLayout = lazy(() => import("../components/layout/AdminLayout"));
+const AdminHome = lazy(() => import("../pages/admin/AdminHome"));
+const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
+const AdminProductList = lazy(() => import("../pages/admin/AdminProductList"));
+const AdminProductEdit = lazy(() => import("../pages/admin/AdminProductEdit"));
+const AdminThemes = lazy(() => import("../pages/admin/AdminThemes"));
 import { adminOnlyGuard } from "./guards";
 
-import ClientLogin from "../pages/client/ClientLogin";
-import MyPage from "../pages/client/MyPage";
-import SupportPage from "../pages/client/SupportPage";
-import FaqPage from "../pages/client/FaqPage";
-import TermsPage from "../pages/client/TermsPage";
-import PrivacyPage from "../pages/client/PrivacyPage";
-import InsurancePage from "../pages/client/InsurancePage";
+const ClientLogin = lazy(() => import("../pages/client/ClientLogin"));
+const MyPage = lazy(() => import("../pages/client/MyPage"));
+const SupportPage = lazy(() => import("../pages/client/SupportPage"));
+const FaqPage = lazy(() => import("../pages/client/FaqPage"));
+const TermsPage = lazy(() => import("../pages/client/TermsPage"));
+const PrivacyPage = lazy(() => import("../pages/client/PrivacyPage"));
+const InsurancePage = lazy(() => import("../pages/client/InsurancePage"));
 
-import AdminBookings from "../pages/admin/AdminBookings";
+const AdminBookings = lazy(() => import("../pages/admin/AdminBookings"));
 
-import NoticesPage from "../pages/client/NoticesPage";
-import NoticeDetailPage from "../pages/client/NoticeDetailPage";
+const NoticesPage = lazy(() => import("../pages/client/NoticesPage"));
+const NoticeDetailPage = lazy(() => import("../pages/client/NoticeDetailPage"));
 
-import AdminNotices from "../pages/admin/AdminNotices";
-import AdminNoticeEdit from "../pages/admin/AdminNoticeEdit";
+const AdminNotices = lazy(() => import("../pages/admin/AdminNotices"));
+const AdminNoticeEdit = lazy(() => import("../pages/admin/AdminNoticeEdit"));
 
-import AdminBranding from "../pages/admin/AdminBranding";
-import AdminFooter from "../pages/admin/AdminFooter";
+const AdminBranding = lazy(() => import("../pages/admin/AdminBranding"));
+const AdminFooter = lazy(() => import("../pages/admin/AdminFooter"));
 
-import AdminUsers from "../pages/admin/AdminUsers";
-import AdminUserDetail from "../pages/admin/AdminUserDetail";
+const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
+const AdminUserDetail = lazy(() => import("../pages/admin/AdminUserDetail"));
 
-import HeroSlideAdminPage from "../pages/admin/HeroSlidesAdminPage";
-import HeroSlides2AdminPage from "../pages/admin/HeroSlides2AdminPage";
+const HeroSlideAdminPage = lazy(() => import("../pages/admin/HeroSlidesAdminPage"));
+const HeroSlides2AdminPage = lazy(() => import("../pages/admin/HeroSlides2AdminPage"));
 
-import SearchPage from "../pages/client/SearchPage";
+const SearchPage = lazy(() => import("../pages/client/SearchPage"));
 
-import  InquiriesAdminPage from "../pages/admin/InquiriesAdminPage";
+const InquiriesAdminPage = lazy(() => import("../pages/admin/InquiriesAdminPage"));
 
-import AdminAreas from "../pages/admin/AdminAreas";
-import AdminRegions from "../pages/admin/AdminRegions";
+const AdminAreas = lazy(() => import("../pages/admin/AdminAreas"));
+const AdminRegions = lazy(() => import("../pages/admin/AdminRegions"));
 
-import AdminPopups from "../pages/admin/AdminPopupsPage";
+const AdminPopups = lazy(() => import("../pages/admin/AdminPopupsPage"));
 
-import AdminThumbnailCleanupPage from "../pages/admin/AdminThumbnailCleanupPage";
+const AdminThumbnailCleanupPage = lazy(() => import("../pages/admin/AdminThumbnailCleanupPage"));
 
-import EstimatePage from "../pages/client/EstimatePage";
+const EstimatePage = lazy(() => import("../pages/client/EstimatePage"));
 
-import AdminHomeSections from "../pages/admin/AdminHomeSections";
+const AdminHomeSections = lazy(() => import("../pages/admin/AdminHomeSections"));
 
+
+function deferred(element: ReactNode) {
+    return <Suspense fallback={<div role="status" className="p-8 text-center">불러오는 중...</div>}>{element}</Suspense>;
+}
 
 function RouteError() {
     const err = useRouteError() as any;
@@ -81,70 +88,70 @@ export const router = createBrowserRouter([
         children: [
             { path: "/", element: <Home /> },
 
-            { path: "/theme/:slug", element: <ThemeProductsPage />, loader: themeProductsLoader },
-            { path: "/product/:id", element: <ProductDetail /> },
-            { path: "/login", element: <ClientLogin /> },
-            { path: "/me", element: <MyPage /> },
+            { path: "/theme/:slug", element: deferred(<ThemeProductsPage />), loader: themeProductsLoader },
+            { path: "/product/:id", element: deferred(<ProductDetail />) },
+            { path: "/login", element: deferred(<ClientLogin />) },
+            { path: "/me", element: deferred(<MyPage />) },
 
-            { path: "/notices", element: <NoticesPage /> },
-            { path: "/notices/:id", element: <NoticeDetailPage /> },
-            { path: "/faq", element: <FaqPage /> },
-            { path: "/support", element: <SupportPage /> },
-            { path: "/search", element: <SearchPage /> },
+            { path: "/notices", element: deferred(<NoticesPage />) },
+            { path: "/notices/:id", element: deferred(<NoticeDetailPage />) },
+            { path: "/faq", element: deferred(<FaqPage />) },
+            { path: "/support", element: deferred(<SupportPage />) },
+            { path: "/search", element: deferred(<SearchPage />) },
 
-            { path: "/estimate", element: <EstimatePage /> },
+            { path: "/estimate", element: deferred(<EstimatePage />) },
 
-            { path: "/terms", element: <TermsPage /> },
-            { path: "/privacy", element: <PrivacyPage /> },
-            { path: "/insurance", element: <InsurancePage /> },
+            { path: "/terms", element: deferred(<TermsPage />) },
+            { path: "/privacy", element: deferred(<PrivacyPage />) },
+            { path: "/insurance", element: deferred(<InsurancePage />) },
         ],
     },
 
-    { path: "/admin/login", element: <AdminLogin />, errorElement: <RouteError /> },
+    { path: "/admin/login", element: deferred(<AdminLogin />), errorElement: <RouteError /> },
 
     {
         path: "/admin",
-        element: <AdminLayout />,
+        element: deferred(<AdminLayout />),
         loader: adminOnlyGuard,
         errorElement: <RouteError />,
         children: [
-            { index: true, element: <AdminHome /> },
+            { index: true, element: deferred(<AdminHome />) },
 
-            { path: "bookings", element: <AdminBookings /> },
+            { path: "bookings", element: deferred(<AdminBookings />) },
 
-            { path: "products", element: <AdminProductList /> },
-            { path: "themes", element: <AdminThemes /> },
+            { path: "products", element: deferred(<AdminProductList />) },
+            { path: "themes", element: deferred(<AdminThemes />) },
 
             // ✅ HERO 슬라이드 관리 라우트
-            { path: "hero-slides", element: <HeroSlideAdminPage /> },
-            { path: "hero-slides2", element: <HeroSlides2AdminPage /> },
+            { path: "hero-slides", element: deferred(<HeroSlideAdminPage />) },
+            { path: "hero-slides2", element: deferred(<HeroSlides2AdminPage />) },
 
-            { path: "home-sections", element: <AdminHomeSections /> },
+            { path: "home-sections", element: deferred(<AdminHomeSections />) },
 
-            { path: "settings/branding", element: <AdminBranding /> },
-            { path: "settings/footer", element: <AdminFooter /> },
+            { path: "settings/branding", element: deferred(<AdminBranding />) },
+            { path: "settings/footer", element: deferred(<AdminFooter />) },
 
-            { path: "users", element: <AdminUsers /> },
-            { path: "users/:id", element: <AdminUserDetail /> },
+            { path: "users", element: deferred(<AdminUsers />) },
+            { path: "users/:id", element: deferred(<AdminUserDetail />) },
 
-            { path: "products/new/:tab", element: <AdminProductEdit mode="create" /> },
-            { path: "products/new", element: <AdminProductEdit mode="create" /> },
+            { path: "products/new/:tab", element: deferred(<AdminProductEdit mode="create" />) },
+            { path: "products/new", element: deferred(<AdminProductEdit mode="create" />) },
 
-            { path: "products/:id/:tab", element: <AdminProductEdit mode="edit" /> },
-            { path: "products/:id", element: <AdminProductEdit mode="edit" /> },
+            { path: "products/:id/:tab", element: deferred(<AdminProductEdit mode="edit" />) },
+            { path: "products/:id", element: deferred(<AdminProductEdit mode="edit" />) },
 
-            { path: "notices", element: <AdminNotices /> },
-            { path: "notices/new", element: <AdminNoticeEdit mode="create" /> },
-            { path: "notices/:id", element: <AdminNoticeEdit mode="edit" /> },
+            { path: "notices", element: deferred(<AdminNotices />) },
+            { path: "notices/new", element: deferred(<AdminNoticeEdit mode="create" />) },
+            { path: "notices/:id", element: deferred(<AdminNoticeEdit mode="edit" />) },
 
-            { path: "inquiries", element: <InquiriesAdminPage /> },
+            { path: "inquiries", element: deferred(<InquiriesAdminPage />) },
 
-            { path: "areas", element: <AdminAreas /> },
-            { path: "regions", element: <AdminRegions /> },
+            { path: "areas", element: deferred(<AdminAreas />) },
+            { path: "regions", element: deferred(<AdminRegions />) },
 
-            { path: "popups", element: <AdminPopups /> },
+            { path: "popups", element: deferred(<AdminPopups />) },
 
-            { path: "cleanup",  element: <AdminThumbnailCleanupPage /> },
+            { path: "cleanup",  element: deferred(<AdminThumbnailCleanupPage />) },
         ],
     },
 ]);

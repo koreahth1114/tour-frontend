@@ -31,6 +31,14 @@ function parseHashtags(subtitle: string): string[] {
     return matches ? matches.map(tag => tag.slice(1)) : []; // # 제거
 }
 
+const defaultHeroSlides2 = [{
+    id: "default_onsen_1",
+    title: "따끈따끈 온천 골프",
+    tags: "따뜻한 온천욕과 가이세키 코스 요리로 온천골프 만끽 🥰",
+    heroImage: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80",
+    cards: [],
+}];
+
 type Card = {
     id: string;
     title: string;
@@ -80,6 +88,8 @@ function ProductCard({
                             className="h-full w-full object-cover object-center transition group-hover:scale-[1.02]"
                             src={item.img}
                             alt={item.title}
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
 
@@ -222,13 +232,6 @@ export default function Home() {
     const slides = heroQuery.slides ?? defaultHeroSlides; // 안전장치
 
     // ✅ HERO 슬라이드2 (따끈따끈 온천 골프용)
-    const defaultHeroSlides2 = [{
-        id: "default_onsen_1",
-        title: "따끈따끈 온천 골프",
-        tags: "따뜻한 온천욕과 가이세키 코스 요리로 온천골프 만끽 🥰",
-        heroImage: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80",
-        cards: [],
-    }];
     const heroQuery2 = useHeroSlides2(defaultHeroSlides2);
     const slides2 = heroQuery2.slides ?? defaultHeroSlides2;
 

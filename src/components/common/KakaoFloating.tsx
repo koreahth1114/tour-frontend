@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import KakaoEmoji from "../../assets/kakao.png";
-import PhoneIcon from "../../assets/phone.png";
+import PhoneIcon from "../../assets/phone.webp";
 
 export default function KakaoFloating() {
     const [showTop, setShowTop] = useState(false);

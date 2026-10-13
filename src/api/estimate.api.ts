@@ -1,8 +1,9 @@
-import { sendEstimateEmail as sendEmailViaEmailJS } from "../utils/emailService";
+import { sendEstimateEmail as sendEmailViaWeb3Forms } from "../utils/emailService";
 
 export type EstimatePayload = {
     name: string;
     phone: string;
+    departure_place: string;
     email?: string | null;
 
     depart_date: string;      // YYYY-MM-DD
@@ -25,12 +26,15 @@ export type EstimatePayload = {
 const RECEIVE_EMAIL = "chungwon87@naver.com";
 
 export async function sendEstimateEmail(payload: EstimatePayload) {
-    // EmailJS를 사용하여 이메일 전송
-    await sendEmailViaEmailJS({
+    const departurePlace = payload.departure_place?.trim();
+    if (!departurePlace) throw new Error("출발지를 입력해 주세요.");
+    // 기존 Web3Forms 이메일 경로로 전달
+    await sendEmailViaWeb3Forms({
         to_email: RECEIVE_EMAIL,
         subject: `[1:1 맞춤견적] ${payload.name}님의 견적 요청`,
         user_name: payload.name,
         user_phone: payload.phone,
+        departure_place: departurePlace,
         user_email: payload.email || "미입력",
         depart_date: payload.depart_date,
         return_date: payload.return_date || "미정",

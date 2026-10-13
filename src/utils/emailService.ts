@@ -3,6 +3,7 @@ const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '';
 const RECEIVE_EMAIL = 'chungwon87@naver.com';
 
 export type EstimateEmailParams = {
+    departure_place: string;
     to_email: string;
     subject: string;
     user_name: string;
@@ -34,6 +35,7 @@ export type BookingEmailParams = {
 
 // 1:1 맞춤견적 이메일 전송
 export async function sendEstimateEmail(params: EstimateEmailParams): Promise<void> {
+    if (!params.departure_place?.trim()) throw new Error("출발지를 입력해 주세요.");
     if (!WEB3FORMS_ACCESS_KEY) {
         throw new Error('Web3Forms 설정이 완료되지 않았습니다. .env.local 파일에 VITE_WEB3FORMS_ACCESS_KEY를 추가하세요.');
     }
@@ -47,6 +49,7 @@ export async function sendEstimateEmail(params: EstimateEmailParams): Promise<vo
 - 이메일: ${params.user_email}
 
 ■ 여행 정보
+- 출발지: ${params.departure_place.trim()}
 - 출발일: ${params.depart_date}
 - 리턴일: ${params.return_date}
 - 인원: ${params.people_count}명

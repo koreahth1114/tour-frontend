@@ -6,8 +6,9 @@ import { useSession } from "../../hooks/useSession";
 import { useLogoUrl, usePrimaryColor } from "../../hooks/useSiteBranding";
 
 import KakaoLogo from "../../assets/kakao.png";
-import InstaIcon from "../../assets/insta.png";
+import InstaIcon from "../../assets/insta.webp";
 import BlogIcon from "../../assets/blog.png";
+import BrandLogo from "../common/BrandLogo";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -35,7 +36,11 @@ export default function Header() {
     });
 
     const logoQuery = useLogoUrl();
-    const logoUrl = logoQuery.data ?? "";
+    // Keep the published brand visible while its configurable setting refreshes.
+    const publishedLogoPath = "branding/logo-72a193df-5664-48a1-86a5-ad364f669c17.svg";
+    const configuredLogo = logoQuery.data;
+    const logoUrl = !configuredLogo || configuredLogo.endsWith(publishedLogoPath)
+        ? "/site-logo.svg" : configuredLogo;
 
     const primaryColorQuery = usePrimaryColor();
     const primaryColor = primaryColorQuery.data || "#2E97F2";
@@ -94,14 +99,7 @@ export default function Header() {
                 <div className="relative z-30 flex items-center justify-between py-3 md:hidden">
                     {/* 로고 */}
                     <Link to="/" aria-label="홈으로" className="flex items-center">
-                        {logoUrl && (
-                            <img
-                                src={logoUrl}
-                                alt="청원여행사"
-                                className="h-10 w-auto max-w-[180px] object-contain"
-                                loading="eager"
-                            />
-                        )}
+                        <BrandLogo src={logoUrl} className="h-10 w-auto max-w-[180px] object-contain" />
                     </Link>
 
                     {/* 햄버거 메뉴 버튼 */}
@@ -322,14 +320,7 @@ export default function Header() {
                             "pointer-events-auto",
                         ].join(" ")}
                     >
-                        {logoUrl && (
-                            <img
-                                src={logoUrl}
-                                alt="청원여행사"
-                                className="h-11 md:h-20 w-auto max-w-[240px] md:max-w-[420px] object-contain"
-                                loading="eager"
-                            />
-                        )}
+                        <BrandLogo src={logoUrl} className="h-11 md:h-20 w-auto max-w-[240px] md:max-w-[420px] object-contain" />
                     </Link>
 
                     {/* PC 우측: SNS */}

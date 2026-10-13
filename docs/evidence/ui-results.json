@@ -1,0 +1,37 @@
+{
+  "conditions": {
+    "viewport": "1440x1000",
+    "cpu": 4,
+    "latency": 150,
+    "downloadBytesPerSecond": 200000,
+    "apiDelay": 250,
+    "externalScriptDelay": 600,
+    "observationAfterDOMContentLoaded": 6500,
+    "externalImages": "controlled SVG fixtures; logo original",
+    "repetitions": 3
+  },
+  "results": [],
+  "checks": [
+    {
+      "test": "estimate-1440: required, whitespace, placement, mocked email",
+      "pass": true
+    },
+    {
+      "test": "estimate-390: required, whitespace, placement, mocked email",
+      "pass": true
+    },
+    {
+      "test": "logoFail",
+      "pass": true
+    },
+    {
+      "test": "logoOverride",
+      "pass": true
+    },
+    {
+      "test": "lazy FAQ, admin guard/login, Naver once",
+      "pass": true,
+      "errors": []
+    }
+  ]
+}

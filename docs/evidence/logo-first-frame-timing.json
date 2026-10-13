@@ -1,0 +1,222 @@
+{
+  "conditions": {
+    "viewport": "1440x1000",
+    "cpu": 4,
+    "latency": 150,
+    "downloadBytesPerSecond": 200000,
+    "apiDelay": 250,
+    "externalScriptDelay": 600,
+    "observationAfterDOMContentLoaded": 6500,
+    "externalImages": "controlled SVG fixtures; logo original",
+    "repetitions": 3
+  },
+  "results": [
+    {
+      "version": "before",
+      "run": 1,
+      "apiDelay": 250,
+      "fcp": 3264,
+      "logoFrame": 3648.199999999255,
+      "inlineInserted": null,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 3320.099999997765,
+          "end": 3581.599999997765
+        },
+        {
+          "kind": "image",
+          "initiator": "img",
+          "start": 3604.5,
+          "end": 3607.199999999255
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -1.786,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 32.373,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 370.217,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 397.25,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 25
+    },
+    {
+      "version": "before",
+      "run": 2,
+      "apiDelay": 250,
+      "fcp": 3072,
+      "logoFrame": 3559.60000000149,
+      "inlineInserted": null,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 3186.89999999851,
+          "end": 3455.39999999851
+        },
+        {
+          "kind": "image",
+          "initiator": "img",
+          "start": 3523.800000000745,
+          "end": 3526.39999999851
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -8.672,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 67.365,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 502.79,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 23
+    },
+    {
+      "version": "before",
+      "run": 3,
+      "apiDelay": 250,
+      "fcp": 2956,
+      "logoFrame": 3396,
+      "inlineInserted": null,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 3050.2999999970198,
+          "end": 3320.89999999851
+        },
+        {
+          "kind": "image",
+          "initiator": "img",
+          "start": 3376.39999999851,
+          "end": 3379.199999999255
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -7.574,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 59.707,
+          "whiteLogoPixels": 0
+        },
+        {
+          "afterFcpMs": 452.418,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 25
+    },
+    {
+      "version": "after",
+      "run": 1,
+      "apiDelay": 250,
+      "fcp": 2224,
+      "logoFrame": 2106.199999999255,
+      "inlineInserted": 1620.300000000745,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 2268.39999999851,
+          "end": 2539.099999997765
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -3.49,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 1
+    },
+    {
+      "version": "after",
+      "run": 2,
+      "apiDelay": 250,
+      "fcp": 2096,
+      "logoFrame": 2054.60000000149,
+      "inlineInserted": 1602.300000000745,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 2203,
+          "end": 2459.5
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -7.888,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 1
+    },
+    {
+      "version": "after",
+      "run": 3,
+      "apiDelay": 250,
+      "fcp": 2116,
+      "logoFrame": 2082.60000000149,
+      "inlineInserted": 1588.9000000022352,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 2230.7000000029802,
+          "end": 2485.60000000149
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": 4.365,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 1
+    },
+    {
+      "version": "after",
+      "run": 4,
+      "apiDelay": 5000,
+      "fcp": 2124,
+      "logoFrame": 2081.400000002235,
+      "inlineInserted": 1585.4000000022352,
+      "resources": [
+        {
+          "kind": "setting",
+          "initiator": "fetch",
+          "start": 2229.7000000029802,
+          "end": 7232.70000000298
+        }
+      ],
+      "firstHeaderFrames": [
+        {
+          "afterFcpMs": -8.909,
+          "whiteLogoPixels": 230
+        }
+      ],
+      "hero2Requests": 1
+    }
+  ]
+}
