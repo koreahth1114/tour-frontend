@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // 인라인 SVG 아이콘들
@@ -34,6 +35,23 @@ function PhoneIcon({ className }: { className?: string }) {
 }
 
 export default function MobileBottomNav() {
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
+    useEffect(() => {
+        const viewport = window.visualViewport;
+        if (!viewport) return;
+        const update = () => {
+            const editing = document.activeElement?.matches('input, textarea, [contenteditable="true"]');
+            setKeyboardOpen(Boolean(editing && window.innerHeight - viewport.height > 150));
+        };
+        viewport.addEventListener("resize", update);
+        document.addEventListener("focusin", update);
+        document.addEventListener("focusout", update);
+        return () => {
+            viewport.removeEventListener("resize", update);
+            document.removeEventListener("focusin", update);
+            document.removeEventListener("focusout", update);
+        };
+    }, []);
     const location = useLocation();
     const navigate = useNavigate();
     const kakaoLink = "http://pf.kakao.com/_qFxdqX/chat";
@@ -44,7 +62,7 @@ export default function MobileBottomNav() {
     };
 
     return (
-        <nav className="fixed bottom-0 left-0 right-0 z-[99999] bg-white border-t border-neutral-200 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] md:hidden">
+        <nav aria-label="빠른 메뉴" hidden={keyboardOpen} className="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-[99999] bg-white border-t border-neutral-200 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] md:hidden">
             <div className="flex items-center justify-around h-16">
                 {/* 홈 */}
                 <button
@@ -76,7 +94,7 @@ export default function MobileBottomNav() {
                     rel="noreferrer"
                     className="flex flex-col items-center justify-center flex-1 h-full gap-1 mx-1 rounded-lg bg-[#FEE500] text-neutral-900"
                 >
-                    <KakaoIcon className="w-5 h-5" />
+                    <span className="mobile-kakao-icon"><KakaoIcon className="w-5 h-5" /></span>
                     <span className="text-xs font-medium">카카오톡</span>
                 </a>
 

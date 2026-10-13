@@ -34,7 +34,7 @@ export default function KakaoFloating() {
                 onClick={goTop}
                 aria-label="맨 위로"
                 className={[
-                    "fixed right-4 bottom-[180px] z-[99998] md:hidden",
+                    "mobile-scroll-top fixed right-4 bottom-[180px] z-40 md:hidden",
                     "h-10 w-10 rounded-full bg-white shadow-lg ring-1 ring-black/10 hover:bg-neutral-50 active:scale-[0.98] transition",
                     showTop
                         ? "opacity-100 translate-y-0 pointer-events-auto"
@@ -45,7 +45,7 @@ export default function KakaoFloating() {
             </button>
 
             {/* PC 플로팅 버튼들 */}
-            <div className="fixed bottom-6 right-6 z-[99999] hidden md:flex flex-col items-center gap-3">
+            <div className="desktop-contact fixed bottom-6 right-6 z-40 hidden md:flex flex-col items-center gap-3">
                 {/* 맨 위로 */}
                 <button
                     type="button"
@@ -67,23 +67,23 @@ export default function KakaoFloating() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="카카오 상담"
-                    className="h-14 w-14 rounded-full bg-[#FEE500] shadow-lg ring-1 ring-black/10 hover:brightness-95 active:scale-[0.98] transition flex items-center justify-center"
+                    className="contact-kakao h-14 w-14 rounded-full bg-[#FEE500] shadow-lg ring-1 ring-black/10 hover:brightness-95 active:scale-[0.98] transition flex items-center justify-center"
                 >
-                    <img src={KakaoEmoji} alt="Kakao" className="h-9 w-9 object-contain" />
+                    <span className="contact-icon"><img src={KakaoEmoji} alt="" className="h-9 w-9 object-contain" /></span><span>카카오 상담</span>
                 </a>
 
                 {/* 전화 */}
                 <a
                     href="tel:01086888810"
                     aria-label="전화 상담"
-                    className="h-14 w-14 rounded-full bg-blue-500 shadow-lg hover:brightness-95 active:scale-[0.98] transition flex items-center justify-center"
+                    className="contact-phone h-14 w-14 rounded-full bg-blue-500 shadow-lg hover:brightness-95 active:scale-[0.98] transition flex items-center justify-center"
                 >
-                    <img
+                    <span className="contact-icon"><img
                         src={PhoneIcon}
-                        alt="Phone"
+                        alt=""
                         className="h-9 w-9 object-contain"
                         draggable={false}
-                    />
+                    /></span><span>전화 상담</span>
                 </a>
             </div>
         </>

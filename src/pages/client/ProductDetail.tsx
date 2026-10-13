@@ -379,13 +379,13 @@ export default function ProductDetail() {
 
         // 3) 가장 안정적인 스크롤: scrollIntoView + offset 보정
         //    (scrollIntoView는 확실히 움직임)
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+
 
         // sticky 헤더 보정: scrollIntoView 후에 살짝 위로 당김
-        const offset = 120;
-        setTimeout(() => {
-            window.scrollBy({ top: -offset, left: 0, behavior: "instant" as ScrollBehavior });
-        }, 250);
+        const header = document.querySelector<HTMLElement>("[data-client-header]");
+        const headerHeight = header && getComputedStyle(header).position === "sticky" ? header.getBoundingClientRect().height : 0;
+        const offset = headerHeight + (document.querySelector(".detail-tabs")?.getBoundingClientRect().height ?? 56) + 16;
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: "smooth" });
     };
 
     // ✅ 상세로 들어오면 “항상 맨 위”로
@@ -674,6 +674,10 @@ export default function ProductDetail() {
     const productJsonLd = getProductJsonLd();
 
     // ✅ 숨김/비공개 상품 접근 차단
+    if (productQuery.isLoading && !product) {
+        return <main className="product-detail detail-loading" aria-busy="true"><Container><div role="status" className="detail-loading-grid"><div><div className="detail-skeleton detail-skeleton-image" /><div className="detail-skeleton detail-skeleton-title" /><p>상품 정보를 불러오고 있습니다.</p></div><div className="detail-skeleton detail-skeleton-summary" /></div></Container></main>;
+    }
+
     if (!productQuery.isLoading && product && product.status !== "PUBLISHED") {
         return (
             <main className="bg-white">
@@ -833,7 +837,7 @@ export default function ProductDetail() {
                 />
             )}
 
-            <main className="bg-white">
+            <main className="product-detail bg-white">
                 <Container>
                 {/* ✅ 상단: 뒤로 */}
                 <div className="pt-6">
@@ -849,21 +853,21 @@ export default function ProductDetail() {
                 </div>
 
                 {/* HERO */}
-                <section className="mt-6">
-                    <div className="grid grid-cols-12 gap-8">
-                        <div className="col-span-12 lg:col-span-7">
+                <section className="detail-overview mt-6">
+                    <div className="detail-overview-grid grid grid-cols-12 gap-8">
+                        <div className="detail-overview-main col-span-12 lg:col-span-7">
                             <div className="flex flex-wrap gap-2">
                                 {tags.map((t) => (
                                     <TagChip key={`${t.label}-${t.to ?? ""}`} label={t.label} to={t.to} />
                                 ))}
                             </div>
 
-                            <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-neutral-900 md:text-3xl">
+                            <h1 className="detail-title mt-4 text-2xl font-extrabold tracking-tight text-neutral-900 md:text-3xl">
                                 {baseTitle}
                             </h1>
 
                             {/* ✅ 여기 닫는 div 누락되면 전체가 망가짐 */}
-                            <div className="mt-4 flex flex-wrap items-end gap-3">
+                            <div className="detail-price mt-4 flex flex-wrap items-end gap-3">
                                 <div className="text-sm text-neutral-500">성인 1인 기준</div>
                                 {heroPriceText === "상담 문의" || heroPriceText === "가격문의" ? (
                                     <div className="text-2xl font-extrabold text-neutral-900">{heroPriceText}</div>
@@ -875,7 +879,7 @@ export default function ProductDetail() {
                                 )}
                             </div>
 
-                            <div className="mt-6 overflow-hidden rounded-3xl border border-neutral-200 bg-white">
+                            <div className="detail-cover mt-6 overflow-hidden rounded-3xl border border-neutral-200 bg-white">
                                 <div className="aspect-[16/10] w-full overflow-hidden">
                                     <img src={heroImg} alt={baseTitle} className="h-full w-full object-cover object-center" />
                                 </div>
@@ -917,7 +921,7 @@ export default function ProductDetail() {
                         </div>
 
                         {/* 오른쪽: "선택중인 행사" - 데스크톱만 표시 */}
-                        <aside className="hidden lg:block col-span-12 lg:col-span-5">
+                        <aside className="detail-booking-summary hidden lg:block col-span-12 lg:col-span-5">
                             <div className="lg:sticky lg:top-28">
                                 <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
                                     <div className="text-base font-extrabold text-neutral-900">선택중인 행사</div>
@@ -1019,7 +1023,7 @@ export default function ProductDetail() {
                 </section>
 
                 {/* 탭 바 (sticky) */}
-                <div className={`sticky top-[72px] z-30 mt-8 bg-white/95 backdrop-blur ${tabShadow ? "shadow-sm" : ""}`}>
+                <div className={`detail-tabs sticky top-[72px] z-30 mt-8 bg-white/95 backdrop-blur ${tabShadow ? "shadow-sm" : ""}`}>
                     <div className="border-y border-neutral-200">
                         <div className="flex items-center gap-2 overflow-x-auto py-3">
                             {(
@@ -1037,6 +1041,8 @@ export default function ProductDetail() {
                             ).map(([key, label]) => (
                                 <button
                                     key={key}
+                                    data-tab={key}
+                                    aria-current={active === key ? "location" : undefined}
                                     type="button"
                                     onClick={() => {
                                         setActive(key);
@@ -1055,7 +1061,7 @@ export default function ProductDetail() {
                 </div>
 
                 {/* 본문 */}
-                <div className="pb-16 pt-8">
+                <div className="detail-body pb-16 pt-8">
                     <div className="grid grid-cols-12 gap-8">
                         <div className="col-span-12 lg:col-span-7 space-y-10">
                             {/* 상품선택 */}
@@ -1451,7 +1457,8 @@ export default function ProductDetail() {
                                 <div className="mt-4">
                                     {(product?.itinerary ?? []).length ? (
                                         <div className="rounded-2xl border border-neutral-200 bg-white p-5">
-                                            <div className="overflow-x-auto rounded-2xl border border-neutral-200">
+                                            <p className="detail-table-hint">표를 좌우로 밀어 전체 일정을 확인하세요.</p>
+                                            <div className="overflow-x-auto rounded-2xl border border-neutral-200" role="region" aria-label="상세일정 표, 가로 스크롤 가능" tabIndex={0}>
                                                 <table className="min-w-[700px] w-full text-left text-sm">
                                                     <thead className="bg-neutral-50 text-neutral-600">
                                                     <tr className="divide-x divide-neutral-200">
@@ -1615,7 +1622,7 @@ export default function ProductDetail() {
             </Container>
 
             {/* 모바일 하단 고정 예약하기 버튼 */}
-            <div className="fixed left-0 right-0 bottom-[60px] z-40 lg:hidden">
+            <div className="detail-mobile-booking fixed left-0 right-0 bottom-[60px] z-40 lg:hidden">
                 <div className="mx-auto max-w-screen-xl px-4 pb-3">
                     <div className="rounded-2xl bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.15)] p-4">
                         <div className="flex items-center justify-between gap-3">

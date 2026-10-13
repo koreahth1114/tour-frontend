@@ -67,7 +67,7 @@ export default function MobileSnapCarousel<T>({
     if (items.length === 0) return null;
 
     return (
-        <div className={wrapperClass}>
+        <div className={`mobile-carousel ${wrapperClass}`}>
             <div
                 ref={scrollerRef}
                 className={[

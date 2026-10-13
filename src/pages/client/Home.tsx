@@ -63,7 +63,7 @@ function toCard(p: Product): Card {
 
 function SectionTitle({ left, right }: { left: string; right?: string }) {
     return (
-        <div className="flex items-end justify-between">
+        <div className="section-title flex items-end justify-between">
             <h2 className="text-2xl font-extrabold tracking-tight text-neutral-900">{left}</h2>
             {right ? <p className="text-base text-neutral-500">{right}</p> : null}
         </div>
@@ -81,7 +81,7 @@ function ProductCard({
 }) {
     return (
         <Link to={`/product/${item.id}`} state={{ product: item }} className="block">
-            <article className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:shadow-md">
+            <article className="travel-card group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:shadow-md">
                 <div className="relative">
                     <div className="aspect-[16/10] w-full overflow-hidden">
                         <img
@@ -107,7 +107,7 @@ function ProductCard({
                     </button>
                 </div>
 
-                <div className="pt-2 px-4 pb-4 flex min-h-[86px] min-w-0 flex-col justify-between">
+                <div className="travel-card-body pt-2 px-4 pb-4 flex min-h-[86px] min-w-0 flex-col justify-between">
                     {/* 태그들 (썸네일과 제목 사이) */}
                     {item.tags && item.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2">
@@ -118,7 +118,7 @@ function ProductCard({
                             ))}
                         </div>
                     )}
-                    <div className="min-w-0 text-base font-semibold text-neutral-900 overflow-hidden text-ellipsis whitespace-nowrap">
+                    <div className="travel-card-title min-w-0 text-base font-semibold text-neutral-900 overflow-hidden text-ellipsis whitespace-nowrap">
                         {item.title}
                     </div>
                     {item.price === "상담 문의" || item.price === "가격문의" ? (
@@ -301,7 +301,7 @@ export default function Home() {
 
 
     return (
-        <main className="bg-white">
+        <main className="home-page bg-white">
             {/* SEO: 검색엔진 인식용 대표 텍스트 */}
             <h1 className="sr-only">일본·중국 골프여행 전문 청원여행사</h1>
 
@@ -325,13 +325,13 @@ export default function Home() {
             ) : null}
 
             {/* ✅ HERO */}
-            <section className="w-screen bg-white -mt-px overflow-hidden">
-                <div className="grid grid-cols-12 items-stretch gap-0 min-h-[calc(92vh-var(--header-h,140px)+12px)]">
+            <section className="home-hero w-screen bg-white -mt-px overflow-hidden">
+                <div className="hero-grid grid grid-cols-12 items-stretch gap-0 min-h-[calc(92vh-var(--header-h,140px)+12px)]">
                     {/* LEFT - 모바일에서는 이미지 다음에 표시 */}
-                    <div className="col-span-12 md:col-span-5 flex justify-end order-last md:order-first">
-                        <div className="w-full max-w-[1400px] px-6 py-4 md:py-0">
+                    <div className="hero-copy-col col-span-12 md:col-span-5 flex justify-end order-last md:order-first">
+                        <div className="hero-copy-shell w-full max-w-[1400px] px-6 py-4 md:py-0">
                             <div className="md:h-full md:flex md:items-center">
-                                <div className="w-full max-w-[580px] ml-0 md:ml-16 lg:ml-24 xl:ml-28 flex flex-col justify-center items-start text-left">
+                                <div className="hero-copy w-full max-w-[580px] ml-0 md:ml-16 lg:ml-24 xl:ml-28 flex flex-col justify-center items-start text-left">
                                     <h2 className="text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-[#2E97F2]">
                                         {active.title.split("\n").map((line, idx) => (
                                             <span key={idx}>
@@ -348,7 +348,7 @@ export default function Home() {
                                             <Link
                                                 key={c.id}
                                                 to={c.productId ? `/product/${c.productId}` : "#"}
-                                                className="w-full max-w-[520px] flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-md transition cursor-pointer"
+                                                className="hero-product w-full max-w-[520px] flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-md transition cursor-pointer"
                                             >
                                                 <div className="w-20 shrink-0 overflow-hidden rounded-xl">
                                                     <div className="aspect-[16/10] w-full overflow-hidden">
@@ -423,7 +423,7 @@ export default function Home() {
                     </div>
 
                     {/* RIGHT */}
-                    <div className="col-span-12 md:col-span-7">
+                    <div className="hero-photo col-span-12 md:col-span-7">
                         <div
                             className="
                 relative w-full overflow-hidden

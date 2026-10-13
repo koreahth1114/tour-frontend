@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { router } from "./routes";
 
 import "./styles/index.css";
+import "./styles/client-design.css";
+import "./styles/client-product-detail.css";
 
 const queryClient = new QueryClient({
     defaultOptions: {

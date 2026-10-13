@@ -61,10 +61,10 @@ export default function EstimatePage() {
     };
 
     return (
-        <main className="bg-white">
+        <main className="estimate-page bg-white">
             <Container>
                 <div className="pt-8 pb-16">
-                    <div className="mx-auto max-w-4xl">
+                    <div className="estimate-wrapper mx-auto max-w-4xl">
                         <h1 className="text-2xl font-extrabold text-neutral-900">
                             1:1 맞춤견적
                         </h1>
@@ -72,8 +72,8 @@ export default function EstimatePage() {
                             원하시는 일정/조건을 남겨주시면 담당자가 확인 후 연락드립니다.
                         </p>
 
-                        <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-6">
-                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div className="estimate-card mt-6 rounded-2xl border border-neutral-200 bg-white p-6">
+                            <div className="estimate-grid grid grid-cols-1 gap-4 md:grid-cols-2">
                                 {/* 이름 */}
                                 <div>
                                     <label className="text-sm font-bold text-neutral-800">

@@ -6,7 +6,7 @@ import ScrollToTop from "../common/ScrollToTop";
 
 export default function ClientLayout() {
     return (
-        <div className="min-h-dvh bg-white text-neutral-900">
+        <div className="client-shell min-h-dvh bg-white text-neutral-900">
             <div id="page-top" />
             <ScrollToTop />
             <Header />

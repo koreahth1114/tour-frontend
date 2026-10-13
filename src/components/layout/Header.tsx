@@ -88,7 +88,7 @@ export default function Header() {
     const disabledSearch = !q.trim();
 
     return (
-        <header
+        <header data-client-header="true"
             className={`sticky top-0 z-50 ${scrolled ? "shadow-md" : ""}`}
             style={{ backgroundColor: primaryColor }}
         >
@@ -283,7 +283,7 @@ export default function Header() {
                 {/* =======================
             (PC) 1줄: 로고 위 우측 메뉴 (현재 안 보이던 부분)
            ======================= */}
-                <div className="hidden md:flex items-center justify-end gap-4 pt-3 pb-2 text-sm font-semibold text-white/90">
+                <div className="header-tools hidden md:flex items-center justify-end gap-4 pt-3 pb-2 text-sm font-semibold text-white/90">
                     <Link to="/notices" className="hover:text-white">
                         공지사항
                     </Link>
@@ -305,7 +305,7 @@ export default function Header() {
                 {/* =======================
             2줄: 로고 영역 (PC 전용)
            ======================= */}
-                <div className="hidden md:relative md:flex items-center justify-between pt-3 pb-6 md:pt-4 md:pb-10">
+                <div className="header-brand hidden md:relative md:flex items-center justify-between pt-3 pb-6 md:pt-4 md:pb-10">
                     {/* PC 좌측 스페이서 */}
                     <div className="hidden md:block w-[260px]" aria-hidden="true" />
 
@@ -382,13 +382,13 @@ export default function Header() {
             {/* =======================
           3줄: 카테고리 + 검색/상담 (PC 전용)
          ======================= */}
-            <div className="hidden md:block">
+            <div className="header-navigation hidden md:block">
                 <nav className="mx-auto w-full max-w-[1400px] px-4 md:px-6">
-                    <div className="flex flex-row items-center gap-4 pt-5">
+                    <div className="header-nav-row flex flex-row items-center gap-4 pt-5">
                         {/* 카테고리 */}
                         <div
                             className={[
-                                "min-w-0 flex-1 flex items-center gap-3 overflow-x-auto",
+                                "header-themes min-w-0 flex-1 flex items-center gap-3 overflow-x-auto",
                                 "text-[16px] font-semibold",
                                 "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
                             ].join(" ")}
@@ -421,7 +421,7 @@ export default function Header() {
                         </div>
 
                         {/* PC 검색/상담 */}
-                        <div className="flex items-center gap-3 shrink-0 ml-auto justify-end">
+                        <div className="header-actions flex items-center gap-3 shrink-0 ml-auto justify-end">
                             <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-white/90">
                                 <span className="text-sm">🔍</span>
                                 <input
