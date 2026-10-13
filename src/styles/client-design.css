@@ -3,6 +3,7 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
 .client-shell { --brand-blue: #248de0; --ink: #172b43; --line: #e5ebf1; --mobile-nav-height: calc(64px + env(safe-area-inset-bottom, 0px)); color: var(--ink); }
 .client-shell :where(a,button,input,textarea,select):focus-visible { outline: 3px solid #80baf0; outline-offset: 3px; }
 .client-shell [data-client-header] { box-shadow: 0 2px 14px #17324b08; }
+.client-shell [data-client-header] > .mx-auto { position: relative; }
 .home-page .section-title { gap: 20px; margin-bottom: 24px; }
 .home-page .section-title h2 { font-size: 30px; line-height: 1.35; letter-spacing: -.045em; color: var(--ink); }
 .home-page .section-title p { color: #718093; }
@@ -43,6 +44,14 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
 .client-shell .desktop-contact .contact-phone .contact-icon { background: #248de0; }
 .client-shell .desktop-contact img { width: 20px; height: 20px; }
 .client-shell .desktop-contact > button { width: 38px; height: 38px; box-shadow: 0 3px 12px #173b4f12; margin-bottom: 2px; }
+.client-shell .desktop-contact > a { width: 164px; height: 52px; font-size: 14px; font-weight: 750; border-width: 1px; box-shadow: 0 5px 16px #173b4f18; transition: background-color .15s, box-shadow .15s; }
+.client-shell .desktop-contact > .contact-kakao { background: #fee500; color: #2b2a22; border-color: #e9d235; }
+.client-shell .desktop-contact > .contact-phone { background: #156fa8; color: #fff; border-color: #126596; }
+.client-shell .desktop-contact .contact-phone .contact-icon { background: #ffffff18; }
+.client-shell .desktop-contact > a:hover { box-shadow: 0 7px 20px #173b4f25; }
+.home-page > .mx-auto > .home-introduction { padding-top: 28px; padding-bottom: 30px; }
+.home-page .home-introduction p { max-width: 1080px; margin: 0; font-size: 16px; line-height: 1.9; color: #475569; word-break: keep-all; overflow-wrap: break-word; text-wrap: pretty; }
+.home-page .home-introduction p + p { margin-top: 8px; }
 .client-shell #site-footer { margin-top: 48px; background: #f3f6f9; color: #6c7c8e; }
 .client-shell #site-footer #cs { background: #edf3f8; border-color: #e2e9f0; }
 .client-shell #site-footer #cs > div { padding-top: 28px; padding-bottom: 28px; gap: 24px; }
@@ -56,6 +65,8 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
 @media (min-width: 768px) {
   .client-shell .header-tools { height: 30px; padding: 0; font-size: 12px; font-weight: 500; }
   .client-shell .header-brand { height: 74px; padding: 0; }
+  .client-shell .header-brand { position: static; }
+  .client-shell .header-brand > a { position: absolute; left: 50%; top: 50%; translate: none; transform: translate(-50%, -50%); }
   .client-shell .header-brand a > svg, .client-shell .header-brand a > img[alt="청원여행사"] { height: 56px; width: auto; }
   .client-shell .header-brand a > span { height: 56px; }
   .client-shell .header-navigation { background: #fff; border-bottom: 1px solid #e7eef4; }
@@ -67,7 +78,8 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
   .client-shell .header-actions > div { background: #f3f6f9; color: #667d91; border: 1px solid #e9eef3; border-radius: 8px; }
   .client-shell .header-actions input { width: clamp(140px,18vw,260px); color: #33475e; }
   .client-shell .header-actions input::placeholder { color: #8a9aab; }
-  .client-shell .header-actions > button { background: #248de0; color: #fff; border-radius: 8px; padding: 11px 20px; }
+  .client-shell .header-actions > button { min-height: 46px; min-width: 150px; background: #ffd23f; color: #173b52; border: 1px solid #edbe27; border-radius: 9px; padding: 11px 22px; font-size: 15px; font-weight: 800; box-shadow: 0 3px 10px #9b751918; transition: background-color .15s, box-shadow .15s; }
+  .client-shell .header-actions > button:hover { background: #ffcc27; box-shadow: 0 5px 14px #9b751928; }
   .home-page .hero-grid { height: clamp(570px, calc(88vh - 160px), 720px); }
   .home-page .hero-copy-col { position: relative; z-index: 1; grid-column: span 5; }
   .home-page .hero-copy-shell { padding: 40px 40px 40px max(24px, calc((100vw - 1400px)/2 + 24px)); }
@@ -89,6 +101,10 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
   .home-page .hero-product > div:first-child { width: 64px; }
 }
 @media (max-width:767px) {
+  .home-page > .mx-auto > .home-introduction { padding-top: 24px; padding-bottom: 12px; }
+  .home-page .home-introduction p { font-size: 15px; line-height: 1.85; }
+  .client-shell [data-client-header] > .mx-auto > .relative > a { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .client-shell [data-client-header] > .mx-auto > .relative > button { margin-left: auto; }
   .home-page .hero-photo > div { height: clamp(240px, 62vw, 300px); }
   .home-page .hero-copy-shell { padding: 26px 16px 28px; }
   .home-page .hero-copy h2 { font-size: 26px; line-height: 1.4; }
@@ -98,6 +114,11 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
   .home-page > .mx-auto > section { padding-top: 32px; padding-bottom: 24px; }
   .home-page .section-title { margin-bottom: 20px; align-items: flex-start; flex-direction: column; gap: 8px; }
   .home-page .section-title h2 { font-size: 27px; }
+  .home-page .section-title h2, .home-page h3, .home-page .hero-copy h2 {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
   .home-page .section-title p { font-size: 13px; }
   .home-page .travel-card-body { padding: 16px; }
   .home-page .mobile-carousel.-mx-6 { margin-inline: -16px; }
@@ -108,9 +129,11 @@ body:has(.client-shell) { height: auto; min-height: 100%; overflow-x: clip; }
   .estimate-page .estimate-grid { gap: 24px; }
   .client-shell .mobile-bottom-nav { z-index: 60; height: var(--mobile-nav-height); padding-bottom: env(safe-area-inset-bottom,0px); border-color: #e4eaf0; box-shadow: 0 -4px 20px #16334f08; }
   .client-shell .mobile-bottom-nav[hidden] { display: none; }
-  .client-shell .mobile-bottom-nav > div > * { background: #fff; color: #64778b; margin: 0; border-radius: 0; gap: 5px; font-weight: 500; }
-  .client-shell .mobile-bottom-nav > div > .text-\[\#1C8B7B\] { color: #1c84cf; }
-  .client-shell .mobile-bottom-nav a:last-child svg { color: #248de0; }
+  .client-shell .mobile-bottom-nav > div > * { position: relative; background: #fff; color: #334155; margin: 0; border-radius: 0; gap: 5px; font-weight: 600; }
+  .client-shell .mobile-bottom-nav > div > * > span:last-child { font-size: 12px; font-weight: 600; }
+  .client-shell .mobile-bottom-nav > div > .text-\[\#1C8B7B\] { color: #0969a8; }
+  .client-shell .mobile-bottom-nav > div > .text-\[\#1C8B7B\]::before { content: ""; position: absolute; top: 0; left: calc(50% - 12px); width: 24px; height: 3px; border-radius: 0 0 3px 3px; background: #0969a8; }
+  .client-shell .mobile-bottom-nav a:last-child svg { color: #24577d; }
   .client-shell .mobile-kakao-icon { width: 24px; height: 24px; margin-block: -2px; border-radius: 7px; display: grid; place-items: center; background: #fee500; color: #332c20; }
   .client-shell .mobile-kakao-icon svg { width: 17px; height: 17px; }
   .client-shell .mobile-scroll-top { bottom: calc(var(--mobile-nav-height) + 88px); box-shadow: 0 3px 12px #173b4f12; }

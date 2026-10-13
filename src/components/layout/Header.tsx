@@ -316,7 +316,7 @@ export default function Header() {
                         className={[
                             "flex items-center justify-center",
                             "w-auto",
-                            "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
+                            "header-logo-anchor",
                             "pointer-events-auto",
                         ].join(" ")}
                     >

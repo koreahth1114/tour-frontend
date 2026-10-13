@@ -456,12 +456,9 @@ export default function Home() {
             {/* ✅ HERO 아래부터는 Container */}
             <Container>
                 {/* SEO 브랜드 소개 텍스트 */}
-                <section className="pt-6 pb-2">
-                    <p className="text-sm leading-relaxed text-neutral-500">
-                        청원여행사는 일본 및 중국 골프여행을 전문으로 운영하는 여행사입니다.
-                        규슈, 간사이, 도쿄, 홋카이도, 청도 등 다양한 지역 골프패키지를 제공하며,
-                        항공, 숙소, 라운드, 이동을 포함한 맞춤 골프투어 서비스를 제공합니다.
-                    </p>
+                <section className="home-introduction pt-6 pb-2">
+                    <p>청원여행사는 일본 및 중국 골프여행을 전문으로 운영하는 여행사입니다.</p>
+                    <p>규슈, 간사이, 도쿄, 홋카이도, 청도 등 다양한 지역 골프패키지를 제공하며, 항공, 숙소, 라운드, 이동을 포함한 맞춤 골프투어 서비스를 제공합니다.</p>
                 </section>
 
                 {/* SPECIAL */}
