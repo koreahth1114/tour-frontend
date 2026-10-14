@@ -3,8 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import Container from "../../components/common/Container";
 
-import { useProducts } from "../../hooks/useProducts";
-import type { Product } from "../../types/product";
+import { useHomeProducts, type HomeProduct } from "../../hooks/useHomeProducts";
 
 import { useHeroSlides } from "../../hooks/useHeroSlides";
 import { useHeroSlides2 } from "../../hooks/useHeroSlides2";
@@ -48,7 +47,7 @@ type Card = {
     tags?: string[];  // subtitle에서 파싱한 해시태그들
 };
 
-function toCard(p: Product): Card {
+function toCard(p: HomeProduct): Card {
     return {
         id: p.id,
         title: p.title,
@@ -140,7 +139,7 @@ function ProductCard({
 
 export default function Home() {
     const nav = useNavigate();
-    const productsQuery = useProducts();
+    const productsQuery = useHomeProducts();
 
     const specialCfgQ = useHomeSpecialSection();
     const onsenCfgQ = useHomeOnsenSection();
