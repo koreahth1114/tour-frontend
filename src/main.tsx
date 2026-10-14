@@ -8,6 +8,7 @@ import "./styles/index.css";
 import "./styles/client-design.css";
 import "./styles/client-product-detail.css";
 import "./styles/client-refinement.css";
+import "./styles/client-landing.css";
 
 const queryClient = new QueryClient({
     defaultOptions: {

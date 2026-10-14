@@ -325,8 +325,8 @@ export default function Home() {
             ) : null}
 
             {/* ✅ HERO */}
-            <section className="home-hero w-screen bg-white -mt-px overflow-hidden">
-                <div className="hero-grid grid grid-cols-12 items-stretch gap-0 min-h-[calc(92vh-var(--header-h,140px)+12px)]">
+            <section className="home-hero">
+                <div className="hero-grid">
                     {/* LEFT - 모바일에서는 이미지 다음에 표시 */}
                     <div className="hero-copy-col col-span-12 md:col-span-5 flex justify-end order-last md:order-first">
                         <div className="hero-copy-shell w-full max-w-[1400px] px-6 py-4 md:py-0">
@@ -343,50 +343,7 @@ export default function Home() {
 
                                     <p className="mt-3 text-sm md:text-base text-neutral-500">{active.tags}</p>
 
-                                    <div className="mt-6 space-y-3 w-full flex flex-col items-start">
-                                        {active.cards.map((c) => (
-                                            <Link
-                                                key={c.id}
-                                                to={c.productId ? `/product/${c.productId}` : "#"}
-                                                className="hero-product w-full max-w-[520px] flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-md transition cursor-pointer"
-                                            >
-                                                <div className="w-20 shrink-0 overflow-hidden rounded-xl">
-                                                    <div className="aspect-[16/10] w-full overflow-hidden">
-                                                        <img
-                                                            src={c.img?.startsWith("http") ? c.img : getPublicSiteAssetUrl(c.img)}
-                                                            alt={c.title}
-                                                            className="h-full w-full object-cover object-center"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="min-w-0 text-left">
-                                                    {/* 부제 해시태그만 표시 (최대 3개) */}
-                                                    {c.tags && c.tags.length > 0 && (
-                                                        <div className="flex flex-wrap items-center gap-2 justify-start">
-                                                            {c.tags.slice(0, 3).map((tag, tagIdx) => (
-                                                                <span
-                                                                    key={tagIdx}
-                                                                    className={`rounded-md px-2 py-1 text-xs md:text-sm font-bold ${
-                                                                        tagIdx % 2 === 0
-                                                                            ? "bg-sky-50 text-sky-700"
-                                                                            : "bg-neutral-100 text-neutral-700"
-                                                                    }`}
-                                                                >
-                                                                    {tag}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-
-                                                    <div className="hero-product-title mt-2 line-clamp-1 text-sm font-semibold text-neutral-900">{c.title}</div>
-                                                    <div className="hero-product-price mt-1 text-sm font-extrabold text-neutral-900">{c.price}</div>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-
-                                    <div className="mt-6 flex items-center gap-2 text-sm text-neutral-500">
+                                    <div className="hero-controls mt-6 flex items-center gap-2 text-sm text-neutral-500">
                     <span className="font-semibold">
                       {String(heroIndex + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
                     </span>
@@ -451,6 +408,49 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+                                    <div className="hero-recommendations">
+                                        {active.cards.map((c) => (
+                                            <Link
+                                                key={c.id}
+                                                to={c.productId ? `/product/${c.productId}` : "#"}
+                                                className="hero-product w-full max-w-[520px] flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-md transition cursor-pointer"
+                                            >
+                                                <div className="w-20 shrink-0 overflow-hidden rounded-xl">
+                                                    <div className="aspect-[16/10] w-full overflow-hidden">
+                                                        <img
+                                                            src={c.img?.startsWith("http") ? c.img : getPublicSiteAssetUrl(c.img)}
+                                                            alt={c.title}
+                                                            className="h-full w-full object-cover object-center"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="min-w-0 text-left">
+                                                    {/* 부제 해시태그만 표시 (최대 3개) */}
+                                                    {c.tags && c.tags.length > 0 && (
+                                                        <div className="flex flex-wrap items-center gap-2 justify-start">
+                                                            {c.tags.slice(0, 3).map((tag, tagIdx) => (
+                                                                <span
+                                                                    key={tagIdx}
+                                                                    className={`rounded-md px-2 py-1 text-xs md:text-sm font-bold ${
+                                                                        tagIdx % 2 === 0
+                                                                            ? "bg-sky-50 text-sky-700"
+                                                                            : "bg-neutral-100 text-neutral-700"
+                                                                    }`}
+                                                                >
+                                                                    {tag}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+
+                                                    <div className="hero-product-title mt-2 line-clamp-1 text-sm font-semibold text-neutral-900">{c.title}</div>
+                                                    <div className="hero-product-price mt-1 text-sm font-extrabold text-neutral-900">{c.price}</div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+
             </section>
 
             {/* ✅ HERO 아래부터는 Container */}
