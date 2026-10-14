@@ -4,6 +4,17 @@ import { supabase } from "../../lib/supabase";
 
 const THUMB_BUCKET = "product-thumbnails";
 
+const DEFAULT_THEME_INTROS: Record<string, { title: string; body: string }> = {
+    "Vietnam-golf": {
+        title: "베트남 골프여행 안내",
+        body: "베트남 골프여행 상품과 지역별 일정을 한눈에 살펴보세요. 청원여행사에서 여행 일정과 인원에 맞는 골프패키지 및 맞춤 골프투어를 상담하실 수 있습니다.",
+    },
+    "Australia golf": {
+        title: "호주 골프여행 안내",
+        body: "호주 골프여행 상품과 지역별 일정을 한눈에 살펴보세요. 청원여행사에서 여행 일정과 인원에 맞는 골프패키지 및 맞춤 골프투어를 상담하실 수 있습니다.",
+    },
+};
+
 type ThemeFaq = {
     question: string;
     answer: string;
@@ -145,6 +156,10 @@ export async function themeProductsLoader({ params, request }: LoaderFunctionArg
 
 export default function ThemeProductsPage() {
     const { theme, areas, products } = useLoaderData() as LoaderData;
+    const defaultIntro = DEFAULT_THEME_INTROS[theme.slug];
+    const isVietnamPlaceholder = theme.slug === "Vietnam-golf" && theme.intro_body?.trim() === "베트남 골프";
+    const introTitle = !isVietnamPlaceholder && theme.intro_title?.trim() ? theme.intro_title : defaultIntro?.title;
+    const introBody = !isVietnamPlaceholder && theme.intro_body?.trim() ? theme.intro_body : defaultIntro?.body;
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -222,16 +237,16 @@ export default function ThemeProductsPage() {
                 <div>
                     <h1 className="text-2xl font-extrabold">{theme.name}</h1>
                     {/* 어드민에서 입력한 안내 문구 (GEO / AI 학습용 콘텐츠) */}
-                    {(theme.intro_title || theme.intro_body) && (
+                    {(introTitle || introBody) && (
                         <div className="mt-3 leading-relaxed text-black/70">
-                            {theme.intro_title && (
+                            {introTitle && (
                                 <h2 className="text-base font-bold text-black/80">
-                                    {theme.intro_title}
+                                    {introTitle}
                                 </h2>
                             )}
-                            {theme.intro_body && (
+                            {introBody && (
                                 <p className="mt-1 whitespace-pre-line text-sm">
-                                    {theme.intro_body}
+                                    {introBody}
                                 </p>
                             )}
                         </div>
