@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import Container from "../../components/common/Container";
-import MobileSnapCarousel from "../../components/common/MobileSnapCarousel";
+
 import { useProducts } from "../../hooks/useProducts";
 import type { Product } from "../../types/product";
 
@@ -17,7 +17,7 @@ import { listActivePopupsForClient, type PopupRow } from "../../api/popups.clien
 
 import { useHomeOnsenSection, useHomeSpecialSection } from "../../hooks/useHomeSections";
 
-import { DesktopCarousel } from "../../components/common/DesktopCarousel";
+
 
 // ✅ 찜하기
 import { useSession } from "../../hooks/useSession";
@@ -64,7 +64,7 @@ function toCard(p: Product): Card {
 function SectionTitle({ left, right }: { left: string; right?: string }) {
     return (
         <div className="section-title flex items-end justify-between">
-            <h2 className="text-2xl font-extrabold tracking-tight text-neutral-900">{left}</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-neutral-900">{left.startsWith("숙박과 라운드를 한곳에,") ? <><span>숙박과 라운드를 한곳에,</span>{" "}<span className="resort-title-line">{left.slice("숙박과 라운드를 한곳에,".length).trim().replace("🏩", "🏨")}</span></> : left}</h2>
             {right ? <p className="text-base text-neutral-500">{right}</p> : null}
         </div>
     );
@@ -456,9 +456,9 @@ export default function Home() {
             {/* ✅ HERO 아래부터는 Container */}
             <Container>
                 {/* SEO 브랜드 소개 텍스트 */}
-                <section className="home-introduction pt-6 pb-2">
-                    <p>청원여행사는 일본 및 중국 골프여행을 전문으로 운영하는 여행사입니다.</p>
-                    <p>규슈, 간사이, 도쿄, 홋카이도, 청도 등 다양한 지역 골프패키지를 제공하며, 항공, 숙소, 라운드, 이동을 포함한 맞춤 골프투어 서비스를 제공합니다.</p>
+                <section className="home-introduction brand-introduction" aria-labelledby="brand-introduction-title">
+                    <div className="brand-introduction-heading"><span className="brand-kicker">CHUNGWON GOLF TOUR</span><h2 id="brand-introduction-title">일본 · 중국<br /> 골프여행 전문</h2></div>
+                    <div className="brand-introduction-content"><p>청원여행사는 일본 및 중국 골프여행을 전문으로 운영하는 여행사입니다.</p><p>규슈, 간사이, 도쿄, 홋카이도, 청도 등 다양한 지역 골프패키지를 제공하며, 항공, 숙소, 라운드, 이동을 포함한 맞춤 골프투어 서비스를 제공합니다.</p><ul className="brand-services" aria-label="맞춤 골프투어 서비스">{["항공", "숙소", "라운드", "이동"].map((service, index) => <li key={service}><span aria-hidden="true">0{index + 1}</span>{service}</li>)}</ul></div>
                 </section>
 
                 {/* SPECIAL */}
@@ -474,66 +474,10 @@ export default function Home() {
                             <div className="mt-6 rounded-2xl border border-dashed border-neutral-300 bg-white p-6 text-sm text-neutral-500">
                                 아직 노출(PUBLISHED) 상품이 없습니다. 어드민에서 상품을 등록/노출로 바꿔주세요.
                             </div>
-                        ) : specialCards.length <= 4 ? (
-                            <>
-                                {/* DESKTOP GRID */}
-                                <div className="mt-6 hidden md:grid md:grid-cols-4 md:gap-6">
-                                    {specialCards.map((p) => (
-                                        <ProductCard
-                                            key={p.id}
-                                            item={p}
-                                            isFavorited={favoritedProductIds.has(p.id)}
-                                            onFavoriteToggle={handleFavoriteToggle}
-                                        />
-                                    ))}
-                                </div>
-
-                                {/* MOBILE SLIDE */}
-                                <div className="mt-6 md:hidden">
-                                    <MobileSnapCarousel
-                                        items={specialCards}
-                                        renderItem={(p) => (
-                                            <ProductCard
-                                                item={p}
-                                                isFavorited={favoritedProductIds.has(p.id)}
-                                                onFavoriteToggle={handleFavoriteToggle}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </>
                         ) : (
-                            <>
-                                {/* DESKTOP: ARROW CAROUSEL (크기 고정) */}
-                                <div className="mt-6 hidden md:block">
-                                    <DesktopCarousel
-                                        items={specialCards}
-                                        renderItem={(p) => (
-                                            <div className="w-[260px] shrink-0 md:w-[280px]">
-                                                <ProductCard
-                                                    item={p}
-                                                    isFavorited={favoritedProductIds.has(p.id)}
-                                                    onFavoriteToggle={handleFavoriteToggle}
-                                                />
-                                            </div>
-                                        )}
-                                    />
-                                </div>
-
-                                {/* MOBILE: 기존 스냅 캐러셀 */}
-                                <div className="mt-6 md:hidden">
-                                    <MobileSnapCarousel
-                                        items={specialCards}
-                                        renderItem={(p) => (
-                                            <ProductCard
-                                                item={p}
-                                                isFavorited={favoritedProductIds.has(p.id)}
-                                                onFavoriteToggle={handleFavoriteToggle}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </>
+                            <div className="home-product-grid">
+                                {specialCards.map(p => <ProductCard key={p.id} item={p} isFavorited={favoritedProductIds.has(p.id)} onFavoriteToggle={handleFavoriteToggle} />)}
+                            </div>
                         )}
                     </section>
                 ) : null}
@@ -560,66 +504,10 @@ export default function Home() {
                             ))}
                         </div>
 
-                        {onsenTopCards.length <= 4 ? (
-                            <>
-                                {/* DESKTOP GRID */}
-                                <div className="mt-8 hidden md:grid md:grid-cols-4 md:gap-6">
-                                    {onsenTopCards.map((p) => (
-                                        <ProductCard
-                                            key={p.id}
-                                            item={p}
-                                            isFavorited={favoritedProductIds.has(p.id)}
-                                            onFavoriteToggle={handleFavoriteToggle}
-                                        />
-                                    ))}
-                                </div>
-
-                                {/* MOBILE SLIDE */}
-                                <div className="mt-8 md:hidden">
-                                    <MobileSnapCarousel
-                                        items={onsenTopCards}
-                                        renderItem={(p) => (
-                                            <ProductCard
-                                                item={p}
-                                                isFavorited={favoritedProductIds.has(p.id)}
-                                                onFavoriteToggle={handleFavoriteToggle}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                {/* DESKTOP SLIDE */}
-                                <div className="mt-8 hidden md:block">
-                                    <DesktopCarousel
-                                        items={onsenTopCards}
-                                        renderItem={(p) => (
-                                            <div className="w-[260px] shrink-0 md:w-[280px] h-full">
-                                                <ProductCard
-                                                    item={p}
-                                                    isFavorited={favoritedProductIds.has(p.id)}
-                                                    onFavoriteToggle={handleFavoriteToggle}
-                                                />
-                                            </div>
-                                        )}
-                                    />
-                                </div>
-
-                                {/* MOBILE SLIDE */}
-                                <div className="mt-8 md:hidden">
-                                    <MobileSnapCarousel
-                                        items={onsenTopCards}
-                                        renderItem={(p) => (
-                                            <ProductCard
-                                                item={p}
-                                                isFavorited={favoritedProductIds.has(p.id)}
-                                                onFavoriteToggle={handleFavoriteToggle}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </>
+                        {(
+                            <div className="home-product-grid">
+                                {onsenTopCards.map(p => <ProductCard key={p.id} item={p} isFavorited={favoritedProductIds.has(p.id)} onFavoriteToggle={handleFavoriteToggle} />)}
+                            </div>
                         )}
                     </section>
                 ) : null}

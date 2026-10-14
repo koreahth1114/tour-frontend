@@ -18,6 +18,10 @@ function UserIcon({ className }: { className?: string }) {
     );
 }
 
+function QuoteIcon({ className }: { className?: string }) {
+    return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M8 4H5v17h14V4h-3M9 3h6v4H9zM8 12h8M8 16h5" /></svg>;
+}
+
 function KakaoIcon({ className }: { className?: string }) {
     return (
         <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -68,6 +72,7 @@ export default function MobileBottomNav() {
                 <button
                     type="button"
                     onClick={handleHomeClick}
+                    aria-current={location.pathname === "/" ? "page" : undefined}
                     className={`flex flex-col items-center justify-center flex-1 h-full gap-1 ${
                         location.pathname === "/" ? "text-[#1C8B7B]" : "text-neutral-600"
                     }`}
@@ -79,12 +84,17 @@ export default function MobileBottomNav() {
                 {/* 마이메뉴 */}
                 <Link
                     to="/me"
+                    aria-current={location.pathname === "/me" ? "page" : undefined}
                     className={`flex flex-col items-center justify-center flex-1 h-full gap-1 ${
                         location.pathname === "/me" ? "text-[#1C8B7B]" : "text-neutral-600"
                     }`}
                 >
                     <UserIcon className="w-5 h-5" />
                     <span className="text-xs font-medium">마이메뉴</span>
+                </Link>
+
+                <Link to="/estimate" aria-current={location.pathname === "/estimate" ? "page" : undefined} className="mobile-quote flex flex-col items-center justify-center flex-1 h-full gap-1">
+                    <QuoteIcon className="w-5 h-5" /><span className="text-xs font-medium">1:1 맞춤견적</span>
                 </Link>
 
                 {/* 카카오톡 */}

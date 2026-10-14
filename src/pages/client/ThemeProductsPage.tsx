@@ -249,7 +249,7 @@ export default function ThemeProductsPage() {
 
                 <div
                     className={[
-                        "flex items-center gap-2",
+                        "theme-area-filters flex items-center gap-2",
                         "flex-wrap", // ✅ 모바일에서 줄바꿈
                         // 아래는 선택: 지역이 많으면 스크롤이 편하면 유지, 싫으면 제거해도 됨
                         "overflow-x-auto pb-2",

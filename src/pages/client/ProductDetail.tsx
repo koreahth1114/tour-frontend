@@ -82,34 +82,32 @@ function getMonthMatrix(monthDate: Date) {
     return { start, end, cells };
 }
 
-function useActiveSection(keys: TabKey[]) {
+function useActiveSection(keys: TabKey[], ready: boolean) {
     const [active, setActive] = useState<TabKey>(keys[0]);
     const refs = useRef<Record<TabKey, HTMLElement | null>>(
         keys.reduce((acc, k) => ({ ...acc, [k]: null }), {} as any)
     );
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visible = entries
-                    .filter((e) => e.isIntersecting)
-                    .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0));
-                if (visible[0]?.target?.id) setActive(visible[0].target.id as TabKey);
-            },
-            {
-                root: null,
-                rootMargin: "-120px 0px -65% 0px",
-                threshold: [0.1, 0.2, 0.35, 0.5],
-            }
-        );
-
-        keys.forEach((k) => {
-            const el = refs.current[k];
-            if (el) observer.observe(el);
-        });
-
-        return () => observer.disconnect();
-    }, [keys]);
+        if (!ready) return;
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            const header = document.querySelector("[data-client-header]")?.getBoundingClientRect().height ?? 0;
+            const tabs = document.querySelector(".detail-tabs")?.getBoundingClientRect().height ?? 0;
+            const sections = keys.flatMap(key => refs.current[key] ? [{ key, top: refs.current[key]!.getBoundingClientRect().top }] : []).sort((a, b) => a.top - b.top);
+            const passed = sections.filter(section => section.top <= header + tabs + 28);
+            const current = passed[passed.length - 1] ?? sections[0];
+            if (current) setActive(current.key);
+        };
+        const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+        window.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule);
+        const observer = new ResizeObserver(schedule);
+        keys.forEach(key => { if (refs.current[key]) observer.observe(refs.current[key]!); });
+        schedule();
+        return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); };
+    }, [keys, ready]);
 
     return { active, setActive, refs };
 }
@@ -363,7 +361,7 @@ export default function ProductDetail() {
         return base;
     }, [insuranceEnabled]);
 
-    const { active, setActive, refs } = useActiveSection(tabKeys);
+    const { active, setActive, refs } = useActiveSection(tabKeys, Boolean(product));
 
     // ✅ 클릭 시 이동 함수 (refs 말고 id로 찾으면 안정적)
     const scrollToTab = (key: TabKey) => {
@@ -385,7 +383,7 @@ export default function ProductDetail() {
         const header = document.querySelector<HTMLElement>("[data-client-header]");
         const headerHeight = header && getComputedStyle(header).position === "sticky" ? header.getBoundingClientRect().height : 0;
         const offset = headerHeight + (document.querySelector(".detail-tabs")?.getBoundingClientRect().height ?? 56) + 16;
-        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: "smooth" });
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     };
 
     // ✅ 상세로 들어오면 “항상 맨 위”로
@@ -1549,16 +1547,14 @@ export default function ProductDetail() {
                                                         ) : null}
 
                                                         {imgs.length ? (
-                                                            <div className="mt-4 flex gap-3 overflow-x-auto">
+                                                            <div className="detail-image-grid mt-4">
                                                                 {imgs.map((x: any, i: number) => {
                                                                     const src = String(x?.path ?? "").trim();
                                                                     if (!src) return null;
                                                                     return (
-                                                                        <div key={`${b.id}-${i}`} className="shrink-0 w-[280px]">
+                                                                        <div key={`${b.id}-${i}`} className="detail-image-item">
                                                                             <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
-                                                                                <div className="aspect-[16/10] w-full">
-                                                                                    <img src={src} alt={x?.caption ?? ""} className="h-full w-full object-cover" />
-                                                                                </div>
+                                                                                <a href={src} target="_blank" rel="noopener noreferrer" className="detail-image-link" aria-label={`${x?.caption || "상품 이미지"} 크게 보기`}><img src={src} alt={x?.caption ?? ""} loading="lazy" decoding="async" /></a>
                                                                             </div>
 
                                                                             {x?.caption ? (
