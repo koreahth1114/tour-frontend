@@ -92,7 +92,16 @@ export default function Footer() {
                         {/* 하단 문구 */}
                         <div className="mt-6 space-y-1">
                             <div>{settings.copyright}</div>
-                            <div>{settings.poweredBy}</div>
+                            <div>
+                                <a
+                                    href="https://findvalue.ai.kr/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`${settings.poweredBy} — 파인드밸류 홈페이지 (새 탭)`}
+                                >
+                                    {settings.poweredBy}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
