@@ -287,7 +287,7 @@ export default function Header() {
                                 className="whitespace-nowrap rounded-full bg-yellow-400 px-5 py-2 text-sm font-extrabold text-neutral-900 hover:bg-yellow-300"
                                 onClick={() => navigate("/estimate")}
                             >
-                                1:1 맞춤견적
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M8 4h8v4H8zM8 6H5v15h14V6h-3M8 12h8M8 16h5" strokeLinecap="round" strokeLinejoin="round" /></svg><span>1:1 맞춤견적</span>
                             </button>
                         </div>
                     </div>

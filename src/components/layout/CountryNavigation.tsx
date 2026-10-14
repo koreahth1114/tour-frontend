@@ -4,6 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { listAreasByTheme } from "../../api/areas.api";
 import type { ThemeRow } from "../../api/themes.api";
 
+function RegionName({ name }: { name: string }) {
+    const parts = name.match(/^(.+?)\s+([A-Za-z].*)$/);
+    return <span className="region-name">{parts ? <><span>{parts[1]}</span><small>{parts[2]}</small></> : name}</span>;
+}
+
 function CountryItem({ theme, open, setOpen, mobile, active }: {
     theme: ThemeRow; open: boolean; setOpen: (id: string | null) => void; mobile: boolean; active: boolean;
 }) {
@@ -36,11 +41,11 @@ function CountryItem({ theme, open, setOpen, mobile, active }: {
         </button>
         {open && <div id={panelId} className="country-panel">
             <div className="country-panel-inner">
-                <Link className="country-all" to={base}>{theme.name} 전체보기 <span aria-hidden="true">↗</span></Link>
+                <Link className="country-all" to={base}><span className="country-overview"><strong>{theme.name}</strong><small>전체보기</small></span><span aria-hidden="true">↗</span></Link>
                 {areas.isPending ? <p role="status">지역을 불러오는 중입니다.</p> : areas.isError ?
                     <div className="country-error"><p>지역을 불러오지 못했습니다.</p><button type="button" onClick={() => areas.refetch()}>다시 시도</button></div> :
                     areas.data?.length ? <div className="country-regions">{areas.data.map(area =>
-                        <Link key={area.id} to={`${base}?${new URLSearchParams({ area: area.slug })}`}>{area.name}<span aria-hidden="true">›</span></Link>
+                        <Link key={area.id} to={`${base}?${new URLSearchParams({ area: area.slug })}`}><RegionName name={area.name} /><span className="region-arrow" aria-hidden="true">→</span></Link>
                     )}</div> : <p>등록된 지역이 없습니다.</p>}
             </div>
         </div>}

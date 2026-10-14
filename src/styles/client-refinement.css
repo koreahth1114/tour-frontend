@@ -1,4 +1,6 @@
-/* Second-round client refinement: original content, routes and brand retained. */
+/* Client refinement: original content, routes and brand retained. */
+.client-shell { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans KR", system-ui, sans-serif; }
+.client-shell :where(button, input, textarea, select) { font-family: inherit; }
 .client-shell { --interaction-speed: 180ms; }
 .client-shell :where(button, a) { -webkit-tap-highlight-color: transparent; }
 .client-shell :where(button:not(:disabled), a):focus-visible { outline: 3px solid #176da4; outline-offset: 4px; }
@@ -9,7 +11,7 @@
 .client-shell .desktop-contact > .contact-kakao { border-color: #c7aa00; }
 .client-shell .desktop-contact > .contact-phone { border-color: #0d527e; }
 .client-shell .header-actions > button { min-width: 104px; width: 104px; padding: 10px 6px; border: 2px solid #c99710; font-size: 13px; }
-.home-page .hero-product { border: 2px solid #d3e0e9; }
+.home-page .hero-product { border: 1px solid #e1e9ef; }
 .home-page .hero-product:focus-visible { border-color: #1d78b0; }
 @media (hover:hover) {
   .client-shell :where(button:not(:disabled), .theme-area-filters button):hover { box-shadow: 0 3px 10px #183a4e12; }
@@ -26,12 +28,21 @@
 .client-shell .header-themes .country-trigger:hover, .client-shell .header-themes .country-item[data-open] > .country-trigger, .client-shell .header-themes .country-trigger[data-active] { border-bottom-color: #207fb8; background: #f3f7fa; color: #126b9f; }
 .country-trigger svg { transition: transform 180ms; }
 .country-item[data-open] > .country-trigger svg { transform: rotate(180deg); }
-.country-desktop .country-panel { position: absolute; top: 100%; left: 0; padding-top: 6px; width: 238px; max-width: calc(100vw - 32px); z-index: 70; }
-.country-panel-inner { padding: 12px; border: 1px solid #d8e3eb; border-top: 3px solid #2d88be; border-radius: 0 0 12px 12px; background: #fff; box-shadow: 0 14px 30px #18364b1a; }
+.country-desktop .country-panel { position: absolute; top: 100%; left: 0; padding-top: 8px; width: 272px; max-width: calc(100vw - 32px); z-index: 70; }
+.country-panel-inner { padding: 12px; border: 1px solid #dbe4ec; border-radius: 16px; background: #fff; box-shadow: 0 18px 44px #16364e1c, 0 3px 8px #16364e08; }
 .country-panel a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 10px 12px; border-radius: 6px; color: #42576a; font-size: 14px; line-height: 1.6; transition: background-color 180ms, color 180ms; }
 .country-panel .country-all { font-weight: 750; color: #193d55; border-bottom: 1px solid #e6edf2; border-radius: 0; margin-bottom: 6px; padding-bottom: 14px; }
 .country-panel a:hover, .country-panel a:focus-visible { background: #eef5fa; color: #126b9f; }
 .country-panel a > span { color: #6991aa; margin-left: 12px; }
+.country-panel a > .country-overview, .country-panel a > .region-name { margin-left: 0; color: #253e52; }
+.country-overview { display: flex; align-items: baseline; gap: 12px; }
+.country-overview strong { font-size: 16px; font-weight: 750; }
+.country-overview small { font-size: 11px; font-weight: 500; color: #778b9b; }
+.region-name { display: flex; flex-direction: column; gap: 1px; font-size: 15px; font-weight: 600; }
+.region-name small { font-size: 11px; font-weight: 400; color: #8393a0; letter-spacing: .025em; }
+.country-regions a { min-height: 57px; padding: 8px 12px; }
+.region-arrow { transition: transform 180ms; font-size: 15px; }
+.country-regions a:hover .region-arrow { transform: translateX(3px); }
 .country-panel p { padding: 12px; color: #617486; font-size: 13px; line-height: 1.7; }
 .country-error button { min-height: 44px; border: 1px solid #b5c9d8; border-radius: 6px; padding: 8px 12px; }
 .home-page > .mx-auto > .brand-introduction { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.7fr); gap: 56px; margin-top: 40px; margin-bottom: 16px; padding: 38px 40px; background: #f4f7f9; border: 1px solid #e1e9ef; border-left: 4px solid #2586bb; border-radius: 4px 16px 16px 4px; }
@@ -108,4 +119,62 @@
   .client-shell *, .client-shell *::before, .client-shell *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
   .client-shell :is(.desktop-contact > a, .header-actions > button, .hero-product, .travel-card, .theme-area-filters button):hover { transform: none !important; }
   .client-shell .travel-card:hover img { transform: none !important; scale: none !important; }
+  .country-regions a:hover .region-arrow { transform: none; }
+}
+
+/* More legible navigation and quieter, rounded calls to action. */
+.client-shell .header-themes .country-trigger { font-size: 18px; font-weight: 700; min-height: 64px; padding-inline: 18px; border-bottom: 0; position: relative; }
+.client-shell .header-themes .country-trigger::after { content: ""; position: absolute; width: 24px; height: 3px; border-radius: 3px; background: #248de0; bottom: 9px; left: calc(50% - 12px); opacity: 0; transition: opacity 180ms; }
+.client-shell .header-themes .country-trigger:hover::after, .client-shell .header-themes .country-item[data-open] > .country-trigger::after, .client-shell .header-themes .country-trigger[data-active]::after { opacity: 1; }
+.client-shell .header-themes .country-trigger:hover, .client-shell .header-themes .country-item[data-open] > .country-trigger, .client-shell .header-themes .country-trigger[data-active] { background: #f7fafc; }
+.client-shell .header-actions > button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 124px; min-width: 124px; min-height: 44px; border-radius: 999px; border: 1px solid #f1c732; padding: 9px 10px; font-size: 12px; font-weight: 750; box-shadow: 0 3px 5px #a27c0610, 0 6px 16px #a27c0610; }
+.client-shell .header-actions > button svg { flex-shrink: 0; }
+.client-shell .header-actions > div { border-radius: 999px; }
+.client-shell .desktop-contact { gap: 10px; }
+.client-shell .desktop-contact > a { width: 124px; height: 46px; min-height: 46px; border-radius: 999px; padding: 0 12px 0 8px; border-width: 1px; gap: 7px; box-shadow: 0 3px 6px #16364e0a, 0 8px 22px #16364e16; }
+.client-shell .desktop-contact > .contact-kakao { border-color: #ead62e; background: #fee500; }
+.client-shell .desktop-contact > .contact-phone { border-color: #1672ae; background: #187cb8; }
+.client-shell .desktop-contact .contact-icon { width: 28px; height: 28px; border-radius: 50%; background: #ffffff36; }
+.client-shell .desktop-contact .contact-phone .contact-icon { background: #ffffff20; }
+.home-page .hero-product { border-radius: 16px; padding: 12px; gap: 16px; background: #ffffffcf; box-shadow: 0 3px 10px #24486204; }
+.home-page .hero-product > div:first-child { width: 112px; border-radius: 10px; }
+.home-page .hero-product > div:first-child > div { aspect-ratio: 1.08; }
+.home-page .hero-product > div:nth-child(2) { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.home-page .hero-product > div:nth-child(2) > div:first-child.flex { gap: 6px; }
+.home-page .hero-product > div:nth-child(2) > div:first-child.flex span { background: transparent; padding: 0; color: #648299; font-size: 11px; font-weight: 500; line-height: 1.5; }
+.home-page .hero-product > div:nth-child(2) > div:first-child.flex span + span { padding-left: 6px; border-left: 1px solid #dbe5ec; }
+.home-page .hero-product .hero-product-title { font-size: 15px; line-height: 1.65; font-weight: 650; color: #203c50; margin-top: 7px; letter-spacing: -.025em; }
+.home-page .hero-product .hero-product-price { font-size: 20px; font-weight: 750; margin-top: 7px; color: #153d59; letter-spacing: -.035em; }
+.home-page .hero-copy > p { max-width: 460px; font-size: 14px; }
+.home-page > .mx-auto > .brand-introduction { margin-top: 56px; margin-bottom: 12px; background: #fff; border: 0; border-bottom: 1px solid #e2eaf0; border-radius: 0; padding: 14px 0 42px; gap: 64px; }
+.brand-introduction h2 { font-size: 30px; }
+.brand-services li { border-top: 0; padding-top: 0; }
+.brand-services { margin-top: 22px; }
+.home-page .section-title h2 { font-size: 32px; font-weight: 750; line-height: 1.45; }
+.home-page .travel-card { border-color: transparent; border-radius: 16px; background: #fff; }
+.home-page .travel-card-body { padding: 20px 8px 12px; }
+.home-page .travel-card-title { font-size: 16px; line-height: 1.65; }
+.home-page .travel-card-body > div:last-child .text-lg { font-size: 22px; color: #173d58; }
+@media(min-width:768px) and (max-width:1100px) {
+  .client-shell .header-themes .country-trigger { font-size: 17px; padding-inline: 8px; gap: 4px; }
+  .client-shell .header-actions input { width: 96px; }
+  .client-shell .header-actions > div { padding-inline: 8px; }
+  .home-page .hero-copy-shell { padding: 24px 20px; }
+  .home-page .hero-product { padding: 10px; gap: 10px; }
+  .home-page .hero-product > div:first-child { width: 82px; }
+  .home-page .hero-product .hero-product-title { font-size: 13px; }
+  .home-page .hero-product .hero-product-price { font-size: 18px; }
+  .home-page > .mx-auto > .brand-introduction { gap: 32px; }
+}
+@media(max-width:767px) {
+  .home-page .hero-product { padding: 12px; gap: 12px; }
+  .home-page .hero-product > div:first-child { width: 88px; }
+  .home-page .hero-product .hero-product-title { font-size: 13px; }
+  .home-page .hero-product .hero-product-price { font-size: 18px; }
+  .home-page .hero-copy > p { font-size: 13px; }
+  .home-page > .mx-auto > .brand-introduction { margin-top: 30px; padding: 8px 4px 32px; gap: 20px; }
+  .brand-introduction h2 { font-size: 25px; }
+  .home-page .section-title h2 { font-size: 25px; }
+  .country-mobile .country-panel-inner { background: #f7f9fb; border-radius: 12px; }
+  .country-mobile .country-trigger { font-size: 18px; min-height: 60px; }
 }

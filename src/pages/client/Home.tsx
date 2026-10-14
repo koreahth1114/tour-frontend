@@ -379,8 +379,8 @@ export default function Home() {
                                                         </div>
                                                     )}
 
-                                                    <div className="mt-2 line-clamp-1 text-sm font-semibold text-neutral-900">{c.title}</div>
-                                                    <div className="mt-1 text-sm font-extrabold text-neutral-900">{c.price}</div>
+                                                    <div className="hero-product-title mt-2 line-clamp-1 text-sm font-semibold text-neutral-900">{c.title}</div>
+                                                    <div className="hero-product-price mt-1 text-sm font-extrabold text-neutral-900">{c.price}</div>
                                                 </div>
                                             </Link>
                                         ))}
