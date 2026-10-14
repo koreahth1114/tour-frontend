@@ -76,7 +76,7 @@ export default function Footer() {
                         </div>
 
                         {/* 사업자 정보: 지정한 줄 구성 */}
-                        <div className="mt-5 space-y-1 leading-relaxed">
+                        <div className="footer-company-desktop mt-5 space-y-1 leading-relaxed">
                             <div>
                                 상호: {settings.companyInfo.name} · 대표: {settings.companyInfo.representative} · 주소:{" "}
                                 {settings.companyInfo.address}
@@ -88,6 +88,24 @@ export default function Footer() {
                             </div>
                             <div>관광사업자등록번호: {settings.companyInfo.tourLicense}</div>
                         </div>
+                        <dl className="footer-company-mobile mt-5">
+                            {[
+                                ["상호", settings.companyInfo.name],
+                                ["대표", settings.companyInfo.representative],
+                                ["주소", settings.companyInfo.address],
+                                ["대표번호", settings.companyInfo.phone],
+                                ["이메일", settings.companyInfo.email],
+                                ["팩스", settings.companyInfo.fax],
+                                ["사업자등록번호", settings.companyInfo.businessNumber],
+                                ["통신판매업신고번호", settings.companyInfo.onlineBusinessNumber],
+                                ["관광사업자등록번호", settings.companyInfo.tourLicense],
+                            ].map(([label, value]) => (
+                                <div key={label} className={label === "상호" || label === "대표" || label === "대표번호" || label === "이메일" ? "footer-company-short" : undefined}>
+                                    <dt>{label}: </dt>
+                                    <dd>{value}</dd>
+                                </div>
+                            ))}
+                        </dl>
 
                         {/* 하단 문구 */}
                         <div className="mt-6 space-y-1">

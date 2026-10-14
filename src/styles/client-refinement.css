@@ -70,7 +70,14 @@
   .home-product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .home-page > .mx-auto > .brand-introduction { gap: 28px; padding: 28px; grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr); }
 }
+.client-shell .footer-company-mobile { display: none; }
 @media(max-width:767px) {
+  .client-shell .footer-company-desktop { display: none; }
+  .client-shell .footer-company-mobile { display: flex; flex-wrap: wrap; column-gap: 12px; row-gap: 5px; font-size: 12px; line-height: 1.6; }
+  .client-shell .footer-company-mobile > div { flex-basis: 100%; min-width: 0; }
+  .client-shell .footer-company-mobile > .footer-company-short { flex-basis: auto; }
+  .client-shell .footer-company-mobile dt { display: inline; }
+  .client-shell .footer-company-mobile dd { display: inline; margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
   .client-shell .mobile-menu-panel { position: fixed; inset: 64px 0 var(--mobile-nav-height); overflow-y: auto; overscroll-behavior: contain; background: #fff; color: #253f53; padding: 24px 20px 28px; border-bottom: 1px solid #d5e2eb; box-shadow: 0 12px 20px #16364d12; z-index: 55; }
   .mobile-menu-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
   .mobile-menu-heading > span:first-child { font-size: 20px; font-weight: 750; letter-spacing: -.03em; }
