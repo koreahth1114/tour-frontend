@@ -81,22 +81,6 @@ export default function MobileBottomNav() {
                     <span className="text-xs font-medium">홈</span>
                 </button>
 
-                {/* 마이메뉴 */}
-                <Link
-                    to="/me"
-                    aria-current={location.pathname === "/me" ? "page" : undefined}
-                    className={`flex flex-col items-center justify-center flex-1 h-full gap-1 ${
-                        location.pathname === "/me" ? "text-[#1C8B7B]" : "text-neutral-600"
-                    }`}
-                >
-                    <UserIcon className="w-5 h-5" />
-                    <span className="text-xs font-medium">마이메뉴</span>
-                </Link>
-
-                <Link to="/estimate" aria-current={location.pathname === "/estimate" ? "page" : undefined} className="mobile-quote flex flex-col items-center justify-center flex-1 h-full gap-1">
-                    <QuoteIcon className="w-5 h-5" /><span className="text-xs font-medium">1:1 맞춤견적</span>
-                </Link>
-
                 {/* 카카오톡 */}
                 <a
                     href={kakaoLink}
@@ -108,6 +92,10 @@ export default function MobileBottomNav() {
                     <span className="text-xs font-medium">카카오톡</span>
                 </a>
 
+                <Link to="/estimate" aria-current={location.pathname === "/estimate" ? "page" : undefined} className="mobile-quote flex flex-col items-center justify-center flex-1 h-full gap-1">
+                    <span className="mobile-quote-icon"><QuoteIcon className="w-5 h-5" /></span><span className="text-xs font-medium">1:1 맞춤견적</span>
+                </Link>
+
                 {/* 전화하기 */}
                 <a
                     href="tel:01086888810"
@@ -116,6 +104,18 @@ export default function MobileBottomNav() {
                     <PhoneIcon className="w-5 h-5" />
                     <span className="text-xs font-medium">전화하기</span>
                 </a>
+
+                {/* 마이메뉴 */}
+                <Link
+                    to="/me"
+                    aria-current={location.pathname === "/me" ? "page" : undefined}
+                    className={`flex flex-col items-center justify-center flex-1 h-full gap-1 ${
+                        location.pathname === "/me" ? "text-[#1C8B7B]" : "text-neutral-600"
+                    }`}
+                >
+                    <UserIcon className="w-5 h-5" />
+                    <span className="text-xs font-medium">마이메뉴</span>
+                </Link>
             </div>
         </nav>
     );

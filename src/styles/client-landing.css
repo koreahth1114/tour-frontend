@@ -75,3 +75,40 @@
   .home-page > .mx-auto > .brand-introduction { margin-top: 28px; padding: 24px 20px; gap: 20px; }
   .home-page > .mx-auto > section:not(.brand-introduction) { padding-top: 32px; padding-bottom: 24px; }
 }
+/* Approved mobile consultation preview: DOM order matches the visual order. */
+@media (max-width: 767px) {
+  .client-shell .mobile-bottom-nav {
+    border-top-color: #e0e7ed;
+    box-shadow: 0 -3px 16px #173d550d;
+    overflow: visible;
+  }
+  .client-shell .mobile-bottom-nav > div { padding-inline: 2px; }
+  .client-shell .mobile-bottom-nav > div > * {
+    border-right: 0;
+    background: white;
+    color: #405363;
+    transition: color 120ms ease;
+  }
+  .client-shell .mobile-bottom-nav > div > [aria-current="page"] { background: white; color: #248de0; }
+  .client-shell .mobile-bottom-nav > div > *::before { display: none; }
+  .client-shell .mobile-bottom-nav > div > *:focus-visible { outline: 2px solid #248de0; outline-offset: -3px; border-radius: 8px; }
+  .client-shell .mobile-bottom-nav > div > *:active { color: #1671bb; }
+  .client-shell .mobile-bottom-nav svg { color: currentColor; }
+  .client-shell .mobile-bottom-nav .mobile-kakao-icon { background: none; border: 0; color: inherit; width: 22px; height: 22px; margin: 0; }
+  .client-shell .mobile-bottom-nav .mobile-kakao-icon svg { width: 22px; height: 22px; }
+  .client-shell .mobile-bottom-nav > div > .mobile-quote { justify-content: flex-end; gap: 3px; padding-bottom: 8px; color: #1d6fac; }
+  .client-shell .mobile-bottom-nav .mobile-quote-icon {
+    position: absolute; top: -15px; width: 52px; height: 52px; display: grid; place-items: center;
+    border-radius: 50%; background: #248de0; color: white; border: 4px solid white;
+    box-shadow: 0 2px 7px #173d5526; transition: transform 120ms ease, background-color 120ms ease;
+  }
+  .client-shell .mobile-bottom-nav .mobile-quote-icon svg { width: 23px; height: 23px; }
+  .client-shell .mobile-bottom-nav .mobile-quote:active .mobile-quote-icon { transform: scale(.96); background: #1671bb; }
+  .client-shell #site-footer { padding-bottom: calc(var(--mobile-nav-height) + 40px); }
+  .client-shell .product-detail .detail-mobile-booking { bottom: calc(var(--mobile-nav-height) + 16px); }
+  .client-shell .mobile-menu-panel { bottom: calc(var(--mobile-nav-height) + 16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .client-shell .mobile-bottom-nav > div > *, .client-shell .mobile-bottom-nav .mobile-quote-icon { transition: none; }
+  .client-shell .mobile-bottom-nav .mobile-quote:active .mobile-quote-icon { transform: none; }
+}
